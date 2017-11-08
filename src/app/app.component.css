@@ -1,0 +1,16 @@
+main {
+  color: red;
+  position: absolute;
+}
+nav a {
+  border: solid 1.5px;
+  padding: 5px;
+  border-radius: 4px;
+  background-color: #2295db;
+  opacity: .9;
+  color: white;
+}
+
+nav a:hover {
+  color: lightgray;
+}
