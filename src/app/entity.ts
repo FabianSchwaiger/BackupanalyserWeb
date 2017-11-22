@@ -1,4 +1,4 @@
 export class Entity {
-  name: string;
-  type: string;
+  name: String;
+  ok: boolean;
 }

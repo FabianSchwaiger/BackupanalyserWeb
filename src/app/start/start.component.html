@@ -1,28 +1,19 @@
-
 <html>
+  <main>
 
-<a href="http://www.commend.at/" target="_blank">
-  <img src=".../HTL-Logo.png">
-</a>
+    <div class="description">
+      <p>Der Backupanalyser kann Backupfiles von Sprechstellen der Firma Commend analysieren.</p>
+      <p>Fehler werden erkann und können ausgebessert werden.</p>
+      <p>Die Backupfiles müssen die Dateiendung .zip oder .back bestitzen.</p>
+    </div>
 
-<main>
-  <h1>Backupanalyzer</h1>
+    <div class="uplaod">
+      <p>
+        Wählen Sie bitte Ihr Backupfile (.zip/.back) aus:
+        <input matInput type="file" accept=".zip,.back" (change)="fileEvent($event)">
+      </p>
 
-  <div class="description">
-    <p>Der Backupanalyser kann Backupfiles von Sprechstellen der Firma Commend analysieren.</p>
-    <p>Fehler werden erkann und können ausgebessert werden.</p>
-    <p>Die Backupfiles müssen die Dateiendung .zip oder.back haben.</p>
-  </div>
+    </div>
 
-  <div class="uplaod">
-    <p>
-      Wählen Sie bitte Ihr Backupfile (.zip/.back) aus:
-      <input matInput type="file" accept=".zip,.back" (click)="fileEvent($event)">
-    </p>
-
-  </div>
-
-</main>
-
-
+  </main>
 </html>

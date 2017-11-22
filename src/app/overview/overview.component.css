@@ -1,0 +1,64 @@
+
+html {
+  position: absolute;
+  top: 120px;
+  font-family:  Condiment ,Roboto, "Helvetica Neue", sans-serif;
+}
+
+#AudioSpeicher {
+  width: 250px;
+  height: 25px;
+  position: relative;
+  left: 2px;
+}
+
+.audio {
+  position: relative;
+  top: 2px;
+}
+
+#MediaSpeicher {
+  width: 250px;
+  height: 25px;
+  position: relative;
+  left: 1px;
+}
+
+.media {
+  position: relative;
+
+}
+
+.EntityTable {
+  position: relative;
+  top: 5px;
+}
+
+.EntityTable td {
+  padding: 10px;
+  margin: 0px;
+  border-top: solid gray 1px;
+  border-bottom: solid gray 1px;
+  border-left: solid gray 1px;
+
+}
+
+.EntityTable table {
+  border-collapse: collapse;
+  border: solid black 1px;
+}
+
+.EntityTable tbody {
+  display: block;
+  margin: -1px;
+}
+
+.OK {
+  background-color: lightgreen;
+}
+.notOK {
+  background-color: lightcoral;
+}
+
+
+

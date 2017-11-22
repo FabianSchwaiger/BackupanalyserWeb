@@ -1,0 +1,69 @@
+<html>
+  <main>
+
+    <!-- -zwei Balken, um die Speicherbelegung zu verdeutlichen -->
+    <div class="media">
+      <table>
+        <tr>
+          <td>
+            Media-Speicher:
+          </td>
+          <td>
+            <meter id="MediaSpeicher" min="0" low="{{MediaLow}}" high="{{MediaHigh}}" max="{{MaxMediaValue}}" value="{{MediaValue}}"></meter>
+            {{MediaValue}} kB / {{MaxMediaValue}} kB belegt
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            Audio-Speicher:
+          </td>
+          <td>
+            <meter id="AudioSpeicher" min="0" low="{{AudioLow}}" high="{{AudioHigh}}" max="{{MaxAudioValue}}" value="{{AudioValue}}">Hallo</meter>
+            {{AudioValue}} kB / {{MaxAudioValue}} kB belegt
+          </td>
+        </tr>
+
+      </table>
+
+    </div>
+
+
+    <!-- Liste aller Entities -->
+    <div class="EntityTable">
+      <h3>Entities:</h3>
+      <table>
+        <tr *ngFor="let entity of entities">
+          <td> {{entity.name}} </td>
+          <!-- falls alles gut -> grüner Hintergrund -->
+          <td *ngIf="entity.ok" class="OK"> {{entity.ok}} </td>
+          <!-- falls Fehler -> roter Hintergrund -->
+          <td *ngIf="!entity.ok" class="notOK"> {{entity.ok}} </td>
+        </tr>
+      </table>
+    </div>
+
+  </main>
+</html>
+
+<!-- mat-table funktioniert leider nicht
+    <div class="entityTable">
+      <mat-table #table [dataSource]="dataSource">
+
+        // Entity-Spalte
+        <ng-container *matColumnDef="name">
+          <mat-header-cell *matHeaderCellDef> Entity </mat-header-cell>
+          <mat-cell *matCellDef="let entity"> {{entity.name}}</mat-cell>
+        </ng-container>
+
+        // Status-Spalte (true/false)
+        <ng-container *matColumnDef="status">
+          <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
+          <mat-cell *matCellDef="let entity"> {{entity.ok}}</mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+      </mat-table>
+    </div>
+  -->

@@ -16,6 +16,5 @@ export class StartComponent {
   public fileEvent($event: any) {
     const fileSelected: File = $event.target.files[0];
     this.fileService.uploadFile(fileSelected);
-    alert('Hallo!');
   }
 }

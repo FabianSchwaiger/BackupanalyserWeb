@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 
 @Injectable()
@@ -22,5 +22,10 @@ export class FileService {
         , (error: any) => {
           alert('Fehler bei Upload!\n' + error.toString());
         });
+  }
+
+  private handleError(error: any): Promise<any> {
+    console.error('An error occurred: ' + error.status + ' ' + error.statusText, error);
+    return Promise.reject(error.message || error);
   }
 }
