@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import 'rxjs/add/observable/of';
 
+import { DeviceProperties } from '../DeviceProperties';
+import { Entity} from '../Entity';
 import { ENTITIES } from '../mock-Entities';
+import { DEVICEPROPERTIES } from '../mock-DeviceProperies';
 
 @Component ({
   selector: 'app-overview',
@@ -20,7 +23,9 @@ export class OverviewComponent implements OnInit {
   MaxAudioValue = 100;
   AudioHigh = this.MaxAudioValue * 0.85;
   AudioLow = this.MaxAudioValue * 0.70;
+  // Rest
   entities = ENTITIES;
+  deviceProperties = DEVICEPROPERTIES;
 
   /* für mat-table (funktioniert leider nicht)
   *displayedColumns = ['name', 'status'];

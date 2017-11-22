@@ -1,33 +1,65 @@
 <html>
   <main>
 
-    <!-- -zwei Balken, um die Speicherbelegung zu verdeutlichen -->
-    <div class="media">
+    <div class="DeviceProperty">
+      <h3>Geräte-Eigenschaften</h3>
+
       <table>
         <tr>
-          <td>
-            Media-Speicher:
-          </td>
-          <td>
-            <meter id="MediaSpeicher" min="0" low="{{MediaLow}}" high="{{MediaHigh}}" max="{{MaxMediaValue}}" value="{{MediaValue}}"></meter>
-            {{MediaValue}} kB / {{MaxMediaValue}} kB belegt
-          </td>
+          <td>Name</td>
+          <td>{{deviceProperties.deviceName}}</td>
         </tr>
-
         <tr>
-          <td>
-            Audio-Speicher:
-          </td>
-          <td>
-            <meter id="AudioSpeicher" min="0" low="{{AudioLow}}" high="{{AudioHigh}}" max="{{MaxAudioValue}}" value="{{AudioValue}}">Hallo</meter>
-            {{AudioValue}} kB / {{MaxAudioValue}} kB belegt
-          </td>
+          <td>Application-Version</td>
+          <td>{{deviceProperties.applicationVersion}}</td>
         </tr>
-
+        <tr>
+          <td>Image-Version</td>
+          <td>{{deviceProperties.imageVersion}}</td>
+        </tr>
+        <tr>
+          <td>OS-Version</td>
+          <td>{{deviceProperties.osVersion}}</td>
+        </tr>
+        <tr>
+          <td>Java-Version</td>
+          <td>{{deviceProperties.javaVersion}}</td>
+        </tr>
+        <tr>
+          <td>Typ</td>
+          <td>{{deviceProperties.deviceType}}</td>
+        </tr>
       </table>
-
     </div>
 
+    <!-- -zwei Balken, um die Speicherbelegung zu verdeutlichen -->
+    <table class="storage">
+      <tr>
+        <td>
+          Media-Speicher:
+        </td>
+        <td>
+          <meter id="MediaSpeicher" min="0" low="{{MediaLow}}" high="{{MediaHigh}}" max="{{MaxMediaValue}}" value="{{MediaValue}}"></meter>
+        </td>
+        <td>{{MediaValue}}</td>
+        <td>
+          kB / {{MaxMediaValue}} kB belegt
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          Audio-Speicher:
+        </td>
+        <td>
+          <meter id="AudioSpeicher" min="0" low="{{AudioLow}}" high="{{AudioHigh}}" max="{{MaxAudioValue}}" value="{{AudioValue}}">Hallo</meter>
+        </td>
+        <td>{{AudioValue}}</td>
+        <td>
+          kB / {{MaxAudioValue}} kB belegt
+        </td>
+      </tr>
+    </table>
 
     <!-- Liste aller Entities -->
     <div class="EntityTable">
@@ -42,6 +74,10 @@
         </tr>
       </table>
     </div>
+
+
+
+
 
   </main>
 </html>

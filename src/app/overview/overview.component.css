@@ -2,7 +2,7 @@
 html {
   position: absolute;
   top: 120px;
-  font-family:  Condiment ,Roboto, "Helvetica Neue", sans-serif;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
 #AudioSpeicher {
@@ -12,11 +12,6 @@ html {
   left: 2px;
 }
 
-.audio {
-  position: relative;
-  top: 2px;
-}
-
 #MediaSpeicher {
   width: 250px;
   height: 25px;
@@ -24,9 +19,17 @@ html {
   left: 1px;
 }
 
-.media {
-  position: relative;
+.storage {
+  margin-top: 10px;
+}
 
+.storage td:nth-child(2) {
+  width: 255px;
+}
+
+.storage td:nth-child(3) {
+  width: 28px;
+  text-align: right;
 }
 
 .EntityTable {
@@ -53,12 +56,37 @@ html {
   margin: -1px;
 }
 
-.OK {
-  background-color: lightgreen;
-}
-.notOK {
-  background-color: lightcoral;
+.EntityTable tr:nth-child(odd) {
+  background-color: lightgray;
 }
 
+.OK {
+  background-color: hsl(120, 100%, 85%);
+}
+.notOK {
+  background-color: hsl(0, 100%, 80%);
+}
+
+.DeviceProperty table {
+  border: solid black 1px;
+  border-collapse: collapse;
+  width: 80%;
+}
+
+.DeviceProperty td {
+  border: solid black 1px;
+  padding: 5px;
+  text-align: center;
+}
+
+.DeviceProperty tr:nth-child(odd) {
+  background-color: lightgrey;
+}
+
+.DeviceProperty td:nth-child(1) {
+  position: relative;
+  width: 40%;
+  font-weight: bold;
+}
 
 
