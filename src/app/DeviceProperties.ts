@@ -2,7 +2,7 @@ export class DeviceProperties {
   deviceName: String;
   applicationVersion: String;
   imageVersion: String;
-  osVersion: String;
+  os: String;
   javaVersion: String;
   deviceType: String;
 }

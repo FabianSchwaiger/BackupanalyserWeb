@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
-import { FileService} from '../file.service';
+
+import { FileService } from '../file.service';
 
 @Component ({
   selector: 'app-start',
   templateUrl: './start.component.html',
-  styleUrls: ['start.component.css']
+  styleUrls: ['../overall-style.css', './start.component.css']
 })
 
 export class StartComponent {

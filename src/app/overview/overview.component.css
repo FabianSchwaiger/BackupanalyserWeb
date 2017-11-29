@@ -1,8 +1,26 @@
+.DeviceProperty table {
+  border: solid black 1px;
+  border-collapse: collapse;
+  width: 80%;
+}
 
-html {
-  position: absolute;
-  top: 120px;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+.DeviceProperty td {
+  border: solid black 1px;
+  padding: 5px;
+  text-align: center;
+}
+
+.DeviceProperty tr:nth-child(odd) {
+  background-color: lightgrey;
+}
+
+.DeviceProperty td:nth-child(1) {
+  width: 40%;
+  font-weight: bold;
+}
+
+.DeviceProperty h3 {
+  margin-top: 0;
 }
 
 #AudioSpeicher {
@@ -39,7 +57,7 @@ html {
 
 .EntityTable td {
   padding: 10px;
-  margin: 0px;
+  margin: 0;
   border-top: solid gray 1px;
   border-bottom: solid gray 1px;
   border-left: solid gray 1px;
@@ -66,27 +84,3 @@ html {
 .notOK {
   background-color: hsl(0, 100%, 80%);
 }
-
-.DeviceProperty table {
-  border: solid black 1px;
-  border-collapse: collapse;
-  width: 80%;
-}
-
-.DeviceProperty td {
-  border: solid black 1px;
-  padding: 5px;
-  text-align: center;
-}
-
-.DeviceProperty tr:nth-child(odd) {
-  background-color: lightgrey;
-}
-
-.DeviceProperty td:nth-child(1) {
-  position: relative;
-  width: 40%;
-  font-weight: bold;
-}
-
-

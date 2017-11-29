@@ -1,57 +1,6 @@
-.head {
-  position: absolute;
-  border-bottom: solid 1px black;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 60px;
-}
-
-nav a {
-  background-color: #2295db;
-  opacity: .9;
-  color: white;
-  font-size: 20px;
-  padding: 20px 10px 18px 10px;
-  text-space: 1.5;
-  text-decoration: none;
-  border-bottom: solid 1px black;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
-}
-
-nav a:hover {
-  color: lightgray;
-}
-
-nav {
-  position: relative;
-  top: 20px;
-  left: 42%;
-  float: left;
-  z-index: 2;
-  outline: none;
-}
-
-#logoCommend {
-  height: 50px;
-  width: 40px;
-
-  position: absolute;
-  top: 5px;
-  right: 10px;
-}
-
-#logoHTL {
-  height: 50px;
-  width: 90px;
-
-  position: absolute;
-  top: 5px;
-  left: 10px;
-}
-
 h1 {
   position: absolute;
-  top: 40px;
-  left: 20px;
+  top: 8%;
+  left: -15%;
+  z-index: 5;
 }

@@ -9,7 +9,7 @@ import { DEVICEPROPERTIES } from '../mock-DeviceProperies';
 @Component ({
   selector: 'app-overview',
   templateUrl: './overview.component.html',
-  styleUrls: ['overview.component.css']
+  styleUrls: ['../overall-style.css', './overview.component.css']
 })
 
 export class OverviewComponent implements OnInit {
@@ -48,6 +48,7 @@ export class OverviewComponent implements OnInit {
     }
   }
 
+  // Wert der beiden Speicherbalken setzten
   setValue(i: number): void {
     this.MediaValue = i;
     this.AudioValue = 100 - i;
