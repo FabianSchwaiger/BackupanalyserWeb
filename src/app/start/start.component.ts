@@ -9,7 +9,7 @@ import { FileService } from '../file.service';
 })
 
 export class StartComponent {
-
+  links = ['10', '2', '3'];
   constructor (
     private fileService: FileService
   ) {}

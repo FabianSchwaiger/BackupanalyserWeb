@@ -1,10 +1,14 @@
-<html>
+<html>  <!--  style="overflow-y: scroll; height: 101%;" -->
 <div class="head">
   <div class="navigation">
-    <ul>
-      <li><a class="active" routerLink="/start">Start</a></li>
-      <li><a routerLink="/overview">Overview</a></li>
-    </ul>
+    <mat-nav-list>
+      <mat-list-item class="active" routerLink="/start">
+        <p mat-line>Start</p>
+      </mat-list-item>
+      <mat-list-item routerLink="/overview">
+        <p  mat-line>Overview</p>
+      </mat-list-item>
+    </mat-nav-list>
   </div>
 
   <div class="logos">
@@ -20,22 +24,62 @@
     </a>
   </div>
 
+  <div class="header">
+    <h1>Backupanalyzer</h1>
+  </div>
+
 
 </div>
   <main>
     <div class="description">
-      Der Backupanalyser kann Backupfiles von Sprechstellen der Firma Commend analysieren.
-      Fehler werden erkann und können ausgebessert werden.
-      Die Backupfiles müssen die Dateiendung .zip oder .back bestitzen.
+      Der Backupanalyser kann Backupfiles von Sprechstellen der Firma Commend analysieren.<br>
+      Fehler werden erkannt und können ausgebessert werden.<br>
+      Die Backupfiles müssen die Dateiendung .zip oder .back besitzen.
     </div>
 
     <div class="uplaod">
       <p>
-        Wählen Sie bitte Ihr Backupfile (.zip/.back) aus:
+        Wählen Sie bitte Ihr Backupfile ( .zip / .back ) aus:
         <input matInput type="file" accept=".zip,.back" (change)="fileEvent($event)">
       </p>
 
     </div>
 
   </main>
+<!-- Um Scrollbalken zu bekommen, damit bei Seitenwechsel nicht alles durch die Gegend springt
+     overflow-y: scroll funktionert leider nicht :( -->
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 </html>

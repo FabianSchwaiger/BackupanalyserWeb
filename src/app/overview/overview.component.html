@@ -1,10 +1,14 @@
 <html>
   <div class="head">
     <div class="navigation">
-      <ul>
-        <li><a routerLink="/start">Start</a></li>
-        <li><a class="active" routerLink="/overview">Overview</a></li>
-      </ul>
+      <mat-nav-list>
+        <mat-list-item routerLink="/start">
+          <p mat-line>Start</p>
+        </mat-list-item>
+        <mat-list-item class="active" routerLink="/overview">
+          <p mat-line >Overview</p>
+        </mat-list-item>
+      </mat-nav-list>
     </div>
 
 
@@ -20,103 +24,79 @@
              alt="HTL-Braunau- Logo">
       </a>
     </div>
+
+    <div class="header">
+      <h1>Backupanalyzer</h1>
+    </div>
   </div>
 
-  <main>
-    <div class="DeviceProperty">
-      <h3>Geräte-Eigenschaften</h3>
 
-      <table>
-        <tr>
-          <td>Gerätename</td>
-          <td>{{deviceProperties.deviceName}}</td>
-        </tr>
-        <tr>
-          <td>Application-Version</td>
-          <td>{{deviceProperties.applicationVersion}}</td>
-        </tr>
-        <tr>
-          <td>Image-Version</td>
-          <td>{{deviceProperties.imageVersion}}</td>
-        </tr>
-        <tr>
-          <td>Betriebssystem</td>
-          <td>{{deviceProperties.os}}</td>
-        </tr>
-        <tr>
-          <td>Java-Version</td>
-          <td>{{deviceProperties.javaVersion}}</td>
-        </tr>
-        <tr>
-          <td>Gerätetyp</td>
-          <td>{{deviceProperties.deviceType}}</td>
-        </tr>
-      </table>
+  <main>
+    <!-- Tabelle der Geräteeigenschaften -->
+    <div class="DeviceProperty">
+      <mat-table #table [dataSource]="DeviceDataSource">
+        <!-- Name Column -->
+        <ng-container matColumnDef="eigenschaften">
+          <mat-header-cell *matHeaderCellDef> Eigenschaften </mat-header-cell>
+          <mat-cell *matCellDef="let deviceProperty"> {{deviceProperty.eigenschaft}} </mat-cell>
+        </ng-container>
+
+        <!-- Status Column -->
+        <ng-container matColumnDef="aktueller status">
+          <mat-header-cell *matHeaderCellDef> aktueller Stand </mat-header-cell>
+          <mat-cell *matCellDef="let deviceProperty"> {{deviceProperty.aktStatus}} </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedDeviceColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedDeviceColumns;"></mat-row>
+      </mat-table>
     </div>
 
     <!-- -zwei Balken, um die Speicherbelegung zu verdeutlichen -->
     <table class="storage">
       <tr>
-        <td>
-          Media-Speicher:
-        </td>
+        <td>Media-Speicher:</td>
         <td>
           <meter id="MediaSpeicher" min="0" low="{{MediaLow}}" high="{{MediaHigh}}" max="{{MaxMediaValue}}" value="{{MediaValue}}"></meter>
-        </td>
-        <td>{{MediaValue}}</td>
-        <td>
-          kB / {{MaxMediaValue}} kB belegt
+          {{MediaValue}} kB / {{MaxMediaValue}} kB belegt
         </td>
       </tr>
 
       <tr>
-        <td>
-          Audio-Speicher:
-        </td>
+        <td>Audio-Speicher:</td>
         <td>
           <meter id="AudioSpeicher" min="0" low="{{AudioLow}}" high="{{AudioHigh}}" max="{{MaxAudioValue}}" value="{{AudioValue}}">Hallo</meter>
-        </td>
-        <td>{{AudioValue}}</td>
-        <td>
-          kB / {{MaxAudioValue}} kB belegt
+          {{AudioValue}} kB / {{MaxAudioValue}} kB belegt
         </td>
       </tr>
     </table>
 
-    <!-- Liste aller Entities -->
+    <!-- Tabelle der Entities -->
     <div class="EntityTable">
-      <h3>Entities:</h3>
-      <table>
-        <tr *ngFor="let entity of entities">
-          <td> {{entity.name}} </td>
-          <!-- falls alles gut -> grüner Hintergrund -->
-          <td *ngIf="entity.ok" class="OK"> {{entity.ok}} </td>
-          <!-- falls Fehler -> roter Hintergrund -->
-          <td *ngIf="!entity.ok" class="notOK"> {{entity.ok}} </td>
-        </tr>
-      </table>
-    </div>
-  </main>
-</html>
-
-<!-- mat-table funktioniert leider nicht
-    <div class="entityTable">
-      <mat-table #table [dataSource]="dataSource">
-
-        // Entity-Spalte
-        <ng-container *matColumnDef="name">
-          <mat-header-cell *matHeaderCellDef> Entity </mat-header-cell>
-          <mat-cell *matCellDef="let entity"> {{entity.name}}</mat-cell>
+      <mat-table #table [dataSource]="EntityDataSource">
+        <!-- Name Column -->
+        <ng-container matColumnDef="name">
+          <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+          <mat-cell *matCellDef="let entity"> {{entity.name}} </mat-cell>
         </ng-container>
 
-        // Status-Spalte (true/false)
-        <ng-container *matColumnDef="status">
+        <!-- Status Column -->
+        <ng-container matColumnDef="status">
           <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
-          <mat-cell *matCellDef="let entity"> {{entity.ok}}</mat-cell>
+          <mat-cell *matCellDef="let entity">
+            <div class="OK" *ngIf="entity.status">
+              {{entity.status}}
+            </div>
+            <div class="notOK" *ngIf="entity.status == false">
+              {{entity.status}}
+            </div>
+          </mat-cell>
         </ng-container>
 
-        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+        <mat-header-row *matHeaderRowDef="displayedEntityColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedEntityColumns;"></mat-row>
       </mat-table>
     </div>
-  -->
+
+  </main>
+</html>

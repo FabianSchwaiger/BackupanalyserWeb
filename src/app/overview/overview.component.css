@@ -1,86 +1,34 @@
-.DeviceProperty table {
-  border: solid black 1px;
-  border-collapse: collapse;
-  width: 80%;
+mat-cell {
+  font-size: 16px;
 }
 
-.DeviceProperty td {
-  border: solid black 1px;
-  padding: 5px;
-  text-align: center;
-}
-
-.DeviceProperty tr:nth-child(odd) {
-  background-color: lightgrey;
-}
-
-.DeviceProperty td:nth-child(1) {
-  width: 40%;
-  font-weight: bold;
-}
-
-.DeviceProperty h3 {
-  margin-top: 0;
+mat-table {
+  padding-bottom: 20px;
 }
 
 #AudioSpeicher {
   width: 250px;
   height: 25px;
-  position: relative;
-  left: 2px;
 }
-
 #MediaSpeicher {
   width: 250px;
   height: 25px;
-  position: relative;
-  left: 1px;
 }
-
 .storage {
   margin-top: 10px;
 }
-
 .storage td:nth-child(2) {
-  width: 255px;
-}
-
-.storage td:nth-child(3) {
-  width: 28px;
-  text-align: right;
+  text-align: left;
+  width: 440px;
 }
 
 .EntityTable {
   position: relative;
   top: 5px;
 }
-
-.EntityTable td {
-  padding: 10px;
-  margin: 0;
-  border-top: solid gray 1px;
-  border-bottom: solid gray 1px;
-  border-left: solid gray 1px;
-
-}
-
-.EntityTable table {
-  border-collapse: collapse;
-  border: solid black 1px;
-}
-
-.EntityTable tbody {
-  display: block;
-  margin: -1px;
-}
-
-.EntityTable tr:nth-child(odd) {
-  background-color: lightgray;
-}
-
 .OK {
-  background-color: hsl(120, 100%, 85%);
+  color: black;
 }
 .notOK {
-  background-color: hsl(0, 100%, 80%);
+  color: red;
 }

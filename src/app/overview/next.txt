@@ -1,5 +1,5 @@
-links wenn falsch, dass Details des Fehlers angezeigt werden
-evtl. einheitliche Schrift in eigenem CSS-File (bzw. in jedem einzeln)
-Tabellen Hintergrundfarbe schöner gestalten
-Allgemein zentraler gestalten (momentan linkslastig)
-Bessere Schriftart / Farbe
+Link wenn falsch, dass Details des Fehlers angezeigt werden
+
+Start-Seite verschönern (z.B. <br> - Elemente durch mehr Text/Bilder ersetzen)
+
+Weißen Hintergrund verbessern (guckt sehr leer aus)
