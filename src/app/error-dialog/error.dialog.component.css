@@ -1,0 +1,10 @@
+.close {
+  position: relative;
+  top: 0%;
+  left: 90%
+}
+
+td {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  padding: 3px 10px 10px 3px;
+}

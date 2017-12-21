@@ -9,11 +9,12 @@ import { FileService } from '../file.service';
 })
 
 export class StartComponent {
-  links = ['10', '2', '3'];
+
   constructor (
     private fileService: FileService
   ) {}
 
+  // Wenn File gewählt wurde, dieses an Webserver senden
   public fileEvent($event: any) {
     const fileSelected: File = $event.target.files[0];
     this.fileService.uploadFile(fileSelected);

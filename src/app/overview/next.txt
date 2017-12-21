@@ -1,5 +1,5 @@
 Link wenn falsch, dass Details des Fehlers angezeigt werden
 
-Start-Seite verschönern (z.B. <br> - Elemente durch mehr Text/Bilder ersetzen)
-
 Weißen Hintergrund verbessern (guckt sehr leer aus)
+
+Bilder im Assest Ordner!!!!!!!

@@ -1,4 +1,4 @@
 export class Entity {
-  name: String;
+  name: string;
   status: boolean;
 }

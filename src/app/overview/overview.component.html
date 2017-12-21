@@ -1,4 +1,5 @@
 <html>
+<body>
   <div class="head">
     <div class="navigation">
       <mat-nav-list>
@@ -11,7 +12,6 @@
       </mat-nav-list>
     </div>
 
-
     <div class="logos">
       <a href="http://www.commend.com" target="_blank">
         <img id="logoCommend"
@@ -20,13 +20,13 @@
       </a>
       <a href="http://www.htl-braunau.at" target="_blank">
         <img id="logoHTL"
-             src="http://www.htl-braunau.at/typo3temp/_processed_/csm_HTL-Logo-RGB-transparent_1895d372b5.png"
+             src="../assets/HTL-Logo-weiss.png"
              alt="HTL-Braunau- Logo">
       </a>
     </div>
 
     <div class="header">
-      <h1>Backupanalyzer</h1>
+      <h1>Backup-Analyzer</h1>
     </div>
   </div>
 
@@ -35,13 +35,13 @@
     <!-- Tabelle der Geräteeigenschaften -->
     <div class="DeviceProperty">
       <mat-table #table [dataSource]="DeviceDataSource">
-        <!-- Name Column -->
+        <!-- Eigenschaften Spalte -->
         <ng-container matColumnDef="eigenschaften">
           <mat-header-cell *matHeaderCellDef> Eigenschaften </mat-header-cell>
           <mat-cell *matCellDef="let deviceProperty"> {{deviceProperty.eigenschaft}} </mat-cell>
         </ng-container>
 
-        <!-- Status Column -->
+        <!-- Status Spalte -->
         <ng-container matColumnDef="aktueller status">
           <mat-header-cell *matHeaderCellDef> aktueller Stand </mat-header-cell>
           <mat-cell *matCellDef="let deviceProperty"> {{deviceProperty.aktStatus}} </mat-cell>
@@ -52,43 +52,42 @@
       </mat-table>
     </div>
 
-    <!-- -zwei Balken, um die Speicherbelegung zu verdeutlichen -->
+    <!-- -zwei Balken, um die Speicherbelegung zu visualisieren -->
     <table class="storage">
       <tr>
         <td>Media-Speicher:</td>
         <td>
           <meter id="MediaSpeicher" min="0" low="{{MediaLow}}" high="{{MediaHigh}}" max="{{MaxMediaValue}}" value="{{MediaValue}}"></meter>
-          {{MediaValue}} kB / {{MaxMediaValue}} kB belegt
         </td>
+        <td> {{MediaValue}} kB / {{MaxMediaValue}} kB belegt </td>
       </tr>
-
       <tr>
         <td>Audio-Speicher:</td>
         <td>
           <meter id="AudioSpeicher" min="0" low="{{AudioLow}}" high="{{AudioHigh}}" max="{{MaxAudioValue}}" value="{{AudioValue}}">Hallo</meter>
-          {{AudioValue}} kB / {{MaxAudioValue}} kB belegt
         </td>
+        <td>{{AudioValue}} kB / {{MaxAudioValue}} kB belegt </td>
       </tr>
     </table>
 
     <!-- Tabelle der Entities -->
     <div class="EntityTable">
       <mat-table #table [dataSource]="EntityDataSource">
-        <!-- Name Column -->
+        <!-- Name Spalte -->
         <ng-container matColumnDef="name">
           <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
           <mat-cell *matCellDef="let entity"> {{entity.name}} </mat-cell>
         </ng-container>
 
-        <!-- Status Column -->
+        <!-- Status Spalte -->
         <ng-container matColumnDef="status">
           <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
           <mat-cell *matCellDef="let entity">
             <div class="OK" *ngIf="entity.status">
-              {{entity.status}}
+              <button mat-button disabled>{{entity.status}}</button>
             </div>
             <div class="notOK" *ngIf="entity.status == false">
-              {{entity.status}}
+              <button mat-button (click)="showError(entity.name)">{{entity.status}}</button>
             </div>
           </mat-cell>
         </ng-container>
@@ -99,4 +98,5 @@
     </div>
 
   </main>
+</body>
 </html>
