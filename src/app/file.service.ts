@@ -1,24 +1,31 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
 import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs/Observable';
 
+import {DeviceProperties} from './DeviceProperties';
 import { Entity } from './Entity';
 
 @Injectable()
 export class FileService {
 
   constructor(
-    private http: Http,
+    private http: HttpClient,
     private router: Router
   ) {}
   url: string;
+  results: Observable<X>;
 
-  getData(): Promise<Entity[]> {   // Promise, damit geringere Wartezeiten
-    this.url = 'https://swapi.co/api/planets/3/';
-    return this.http.get(this.url )
-      .toPromise()
-      .then(response => response.json() as Entity[])
-      .catch(this.handleError);      // data.json() -> in JSON-Format umwandeln
+  getData2(): Observable<X> {
+    this.url = 'https://swapi.co/api/planets';
+    this.results = this.http.get<X>(this.url);
+
+    return this.results;
+  }
+
+  getDeviceProperties(): Observable<DeviceProperties> {
+    this.url = this.url + '/properties';
+    return this.http.get<DeviceProperties>(this.url);
   }
 
   /*
@@ -44,4 +51,11 @@ export class FileService {
     console.error('An error occurred: ' + error.status + ' ' + error.statusText, error);
     return Promise.reject(error.message || error);
   }
+}
+
+interface X {
+  count: number;
+  next: string;
+  previous: string;
+  results: JSON[];
 }

@@ -33,11 +33,12 @@ export class OverviewComponent implements OnInit {
   // Entity Table
   displayedEntityColumns = ['name', 'status'];
   EntityDataSource = new EntityDataSource();
-  entities= this.dataService.getData();
 
   // Entity Table
   displayedDeviceColumns = ['eigenschaften', 'aktueller status'];
   DeviceDataSource = new DeviceDataSource();
+
+  results: X;
 
   constructor(
     public dialog: MatDialog,
@@ -48,6 +49,17 @@ export class OverviewComponent implements OnInit {
   ngOnInit(): void {
     this.setValue(150, 75);
 
+    this.showData();
+  }
+
+  showData(): void {
+
+    this.dataService.getData2().subscribe( result => {
+      this.results = result;
+      console.log(this.results.results[0]);
+      console.log(this.results.next);
+    });
+    console.log('Test');
   }
 
   // Hiermit wird ständig der Wert der beiden Speicherbalken variiert (nur für Veranschaulichung, kein Nutzen)
@@ -112,3 +124,9 @@ export class DeviceDataSource extends DataSource<any> {
   disconnect() {}
 }
 
+interface X {
+  count: number;
+  next: string;
+  previous: string;
+  results: JSON[];
+}

@@ -1,5 +1,4 @@
 main {
-  font-family: Roboto, "Helvetica Neue", sans-serif;
   padding-top: 8%;
   padding-left: 25%;
   padding-right: 25%;
@@ -8,7 +7,7 @@ main {
   position: absolute;
   top: 9.6%;
   left: 0;
-  background-color: #e6e6e6;
+
 }
 
 .head {
