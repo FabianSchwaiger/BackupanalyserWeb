@@ -10,7 +10,7 @@ import { StartComponent} from './start/start.component';
 import { OverviewComponent } from './overview/overview.component';
 import { ErrorDialogComponent } from './error-dialog/error.dialog.component';
 import { EntityService } from './entity-service'
-import { FileService } from './file.service';
+import { DataService } from './data.service';
 import { AppRoutingModule } from './app-routing.module';
 
 
@@ -29,7 +29,7 @@ import { AppRoutingModule } from './app-routing.module';
   ],
   declarations: [ AppComponent, StartComponent, OverviewComponent, ErrorDialogComponent],
   entryComponents: [ ErrorDialogComponent ],
-  providers:    [ FileService, EntityService ],
+  providers:    [ DataService, EntityService ],
   bootstrap:    [ AppComponent ]
 })
 export class AppModule { }

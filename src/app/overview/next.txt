@@ -1,5 +1,0 @@
-Link wenn falsch, dass Details des Fehlers angezeigt werden
-
-Weißen Hintergrund verbessern (guckt sehr leer aus)
-
-Bilder im Assest Ordner!!!!!!!

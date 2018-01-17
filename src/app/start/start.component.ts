@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { FileService } from '../file.service';
+import { DataService } from '../data.service';
 
 @Component ({
   selector: 'app-start',
@@ -11,7 +11,7 @@ import { FileService } from '../file.service';
 export class StartComponent {
 
   constructor (
-    private fileService: FileService
+    private fileService: DataService
   ) {}
 
   // Wenn File gewählt wurde, dieses an Webserver senden

@@ -4,11 +4,15 @@ import { DataSource } from '@angular/cdk/collections';
 import { Observable } from 'rxjs/Observable';
 import { MatDialog} from '@angular/material';
 
-import { DeviceProperties } from '../DeviceProperties';
-import { Entity} from '../Entity';
 import { ErrorDialogComponent } from '../error-dialog/error.dialog.component';
-import { FileService } from '../file.service';
+import { DataService } from '../data.service';
 
+import { DeviceProperties} from '../DeviceProperties';
+import { Storage } from '../Storage';
+import { Entity } from '../Entity';
+import { Error } from '../Error';
+
+// Zu Mocking-Zwecken
 import { ENTITIES } from '../mock-Entities';
 import { DEVICEPROPERTIES } from '../mock-DeviceProperies';
 
@@ -19,16 +23,17 @@ import { DEVICEPROPERTIES } from '../mock-DeviceProperies';
 })
 
 export class OverviewComponent implements OnInit {
-  // Media-Werte
-  MediaValue = 0;
-  MaxMediaValue = 100;
-  MediaHigh = this.MaxMediaValue * 0.85;
-  MediaLow = this.MaxMediaValue * 0.70;
+  deviceProperties: DeviceProperties[];
+  storage: Storage;
+  entities: Entity[];
+  errors: Error[];
+
+  // Werte für Balken
+  MediaHigh: number;
+  MediaLow: number;
   // Audio-Werte
-  AudioValue = 0;
-  MaxAudioValue = 100;
-  AudioHigh = this.MaxAudioValue * 0.85;
-  AudioLow = this.MaxAudioValue * 0.70;
+  AudioHigh: number;
+  AudioLow: number;
 
   // Entity Table
   displayedEntityColumns = ['name', 'status'];
@@ -42,17 +47,37 @@ export class OverviewComponent implements OnInit {
 
   constructor(
     public dialog: MatDialog,
-    private dataService: FileService
+    private dataService: DataService
   ) {}
 
-  // bei Start Balken setzen ( später empfangene Werte einsetzen )
-  ngOnInit(): void {
-    this.setValue(150, 75);
 
-    this.showData();
+  ngOnInit(): void {
+  // ngOnInit wird bei laden der Component aufgerufen -> Alle Werte setzen
+
+    // this.setValue(150, 75);
+
+    // this.showData();
+/*
+    // Daten vom Server bekommen
+    this.dataService.getDeviceProperties().subscribe( result => { this.deviceProperties = result; });
+    this.dataService.getStorage().subscribe( result => { this.storage = result; });
+    this.dataService.getEntities().subscribe( result => { this.entities = result; });
+    this.dataService.getErrors().subscribe( result => { this.errors = result; });
+*/
+    this.deviceProperties = DEVICEPROPERTIES;
+    this.storage = { MediaUsed: 90, MediaMax: 100, AudioUsed: 25, AudioMax: 100 };
+    this.entities = ENTITIES;
+    this.errors = [{ name: 'Media Store', description: 'File nicht vohanden' }];
+
+    // Werte der Balken setzten bei > Low -> gelb, bei > High -> rot
+    this.MediaHigh = this.storage.MediaMax * 0.90;
+    this.MediaLow = this.storage.MediaMax * 0.75;
+    this.AudioHigh = this.storage.AudioMax * 0.85;
+    this.AudioLow = this.storage.AudioMax * 0.75;
   }
 
   showData(): void {
+  // Daten der SW-API zum Testen des HTTP-Clients anzeigen
 
     this.dataService.getData2().subscribe( result => {
       this.results = result;
@@ -62,52 +87,70 @@ export class OverviewComponent implements OnInit {
     console.log('Test');
   }
 
-  // Hiermit wird ständig der Wert der beiden Speicherbalken variiert (nur für Veranschaulichung, kein Nutzen)
+  /*
   varyValue() {
+  // Hiermit wird ständig der Wert der beiden Speicherbalken variiert (nur für Veranschaulichung, kein Nutzen)
     for (let i = 0; i < 100; i++) {
-      for (let j = 0; j <= this.MaxMediaValue; j++) {
+      for (let j = 0; j <= this.storage.MediaMax; j++) {
         setTimeout(() => { this.setValue(j, 100 - j); }, j * 50 + 10000 * i);
       }
-      for (let j = 0; j <= this.MaxAudioValue; j++) {
+      for (let j = 0; j <= this.storage.AudioMax; j++) {
         setTimeout(() => { this.setValue(100 - j, j); }, j * 50 + 10000 * i + 5000);
       }
     }
   }
 
-  // Wert der beiden Speicherbalken setzten
   setValue(media: number, audio: number): void {
-    this.MediaValue = media;
-    this.AudioValue = audio;
+  // Wert der beiden Speicherbalken setzten
+    this.storage.MediaUsed = media;
+    this.storage.AudioUsed = audio;
   }
+  */
 
-  // Fehler eines Entities anzeigen
   showError(errorName: string): void {
-    this.openDialog(errorName, 'Missing');
+  // Fehlerdialog eines gewählten, fehlerhaften Entities anzeigen
+    const errorDescription: string = this.getError(errorName);    // Fehler-Beschreibung suchen
+    this.openDialog(errorName, errorDescription);
   }
 
-  // Dialog zum Anzeigen eines Fehlers öffnen
   openDialog(errorName: string, errorDescription: string ): void {
+  // Dialog zum Anzeigen eines Fehlers öffnen
     // Für Dialog zu ladende Component sowie Breite und evtl. benötigte Daten angeben
     const dialogRef = this.dialog.open(ErrorDialogComponent, {
-      width: '30%',
+      width: '32%',
       data: { name: errorName, description: errorDescription }
     });
 
     dialogRef.afterClosed();
   }
 
+  getError(errorName: string): string {
+  // Fehlermeldung für speziellen Fehler finden und zurückgeben (für Anzeige)
+    if (this.errors != null) {
+      for (let i = 0; i < this.errors.length; i++) {
+        if (errorName === this.errors[i].name) {
+          return this.errors[i].description;
+
+        }
+      }
+    }
+    // Kein Fehler gefunden
+    return 'No Error Description Found!';
+  }
 }
 
 // Werte für Entity-Tabelle bekommen
 export class EntityDataSource extends DataSource<any> {
-
-  private fileService: FileService;
+  private dataService: DataService;
   entities: Entity[];
 
   // Connect, damit Tabelle Daten bekommt
   connect(): Observable<Entity[]> {
-    // this.fileService.getData().then(data => this.entities = data);
-    this.entities = ENTITIES;
+    // Daten vom Server abfragen
+    // this.dataService.getEntities().subscribe( result => { this.entities = result; });
+
+    this.entities = ENTITIES;         // Mocking
+    // Daten an Tabelle übergeben
     return Observable.of(this.entities);
   }
 
@@ -116,14 +159,25 @@ export class EntityDataSource extends DataSource<any> {
 
 // Werte für Device-Property Tabelle bekommen
 export class DeviceDataSource extends DataSource<any> {
+  private dataService: DataService;
+  deviceProperties: DeviceProperties[];
+
+  // deviceProperties = DEVICEPROPERTIES;    // Von Server abfragen
+
   // Connect, damit Tabelle Daten bekommt
   connect(): Observable<DeviceProperties[]> {
-    return Observable.of(DEVICEPROPERTIES);
+    // Daten vom Server abfragen
+    // this.dataService.getDeviceProperties().subscribe( result => { this.deviceProperties = result; });
+
+    this.deviceProperties = DEVICEPROPERTIES;       // Mocking
+    // Daten an Tabelle übergeben
+    return Observable.of(this.deviceProperties);
   }
 
   disconnect() {}
 }
 
+// Test-Interface
 interface X {
   count: number;
   next: string;

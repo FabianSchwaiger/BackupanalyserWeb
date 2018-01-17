@@ -3,17 +3,21 @@ import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 
-import {DeviceProperties} from './DeviceProperties';
+import { DeviceProperties } from './DeviceProperties';
+import { Storage } from './Storage';
 import { Entity } from './Entity';
+import { Error } from './Error';
 
 @Injectable()
-export class FileService {
+export class DataService {
 
   constructor(
     private http: HttpClient,
     private router: Router
   ) {}
-  url: string;
+  url: string;    // Addresse von Vici einfügen
+
+
   results: Observable<X>;
 
   getData2(): Observable<X> {
@@ -23,9 +27,28 @@ export class FileService {
     return this.results;
   }
 
-  getDeviceProperties(): Observable<DeviceProperties> {
+  getDeviceProperties(): Observable<DeviceProperties[]> {
+  // DeviceProperties - Daten von Server holen
     this.url = this.url + '/properties';
-    return this.http.get<DeviceProperties>(this.url);
+    return this.http.get<DeviceProperties[]>(this.url);
+  }
+
+  getStorage(): Observable<Storage> {
+  // Storage - Daten von Server holen
+    this.url = this.url + '/storage';
+    return this.http.get<Storage>(this.url);
+  }
+
+  getEntities(): Observable<Entity[]> {
+  // Entity - Daten von Server holen
+    this.url = this.url + '/entities';
+    return this.http.get<Entity[]>(this.url);
+  }
+
+  getErrors(): Observable<Error[]> {
+  // Error - Daten von Server holen
+    this.url = this.url + '/errors';
+    return this.http.get<Error[]>(this.url);
   }
 
   /*
@@ -43,7 +66,7 @@ export class FileService {
         , (error: any) => {
           alert('Fehler bei Upload!\n' + error.toString());
         });
-    this.router.navigate(['/overview']); // Wird File hochgeladen -> automatisch zu Overview wechselns
+    this.router.navigate(['/overview']); // Wird File hochgeladen -> automatisch zu Overview wechseln
   }
 
   // Falls ein Fehler auftritt, diesen auf der Konsole anzeigen

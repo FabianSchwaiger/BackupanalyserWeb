@@ -1,4 +1,4 @@
-<html>  <!--  style="overflow-y: scroll; height: 101%;" -->
+<html>
 <body>
   <div class="head">
     <div class="navigation">
@@ -28,27 +28,25 @@
     <div class="header">
       <h1>Backup-Analyzer</h1>
     </div>
-
-
   </div>
-    <main>
-      <div class="description">
-        Der Backupanalyser kann Backupfiles von Sprechstellen der Firma Commend analysieren.<br>
-        Fehler werden automatisch erkannt und können korrigiert werden.<br>
-        Analysierbare Sicherungsdateien müssen die Dateiendung .zip oder .back besitzen.
-      </div>
-      <br>
-      <div class="uplaod">
-        <p>
-          Bitte wählen Sie das Backupfile ( .zip / .back ) aus:
-          <input matInput type="file" accept=".zip,.back" (change)="fileEvent($event)">
-        </p>
-      </div>
-    </main>
+
+
+  <main>
+    <div class="description">
+      Der Backupanalyser kann Backupfiles von Sprechstellen der Firma Commend analysieren.<br>
+      Fehler werden automatisch erkannt und können korrigiert werden.<br>
+      Analysierbare Sicherungsdateien müssen die Dateiendung .zip oder .back besitzen.
+    </div>
+    <br>
+    <div class="uplaod">
+      <p>
+        Bitte wählen Sie das Backupfile ( .zip / .back ) aus:
+        <input matInput type="file" accept=".zip,.back" (change)="fileEvent($event)">
+      </p>
+    </div>
+  </main>
 
  <!-- Fehler im HTML, damit Loading-Screen bleibt  <div *ngFor="let x=0"></div> -->
 
-
 </body>
 </html>
-

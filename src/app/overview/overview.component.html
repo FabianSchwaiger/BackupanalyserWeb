@@ -1,6 +1,7 @@
 <html>
 <body>
   <div class="head">
+    <!-- Navigation -->
     <div class="navigation">
       <mat-nav-list>
         <mat-list-item routerLink="/start">
@@ -11,7 +12,7 @@
         </mat-list-item>
       </mat-nav-list>
     </div>
-
+    <!-- Logos -->
     <div class="logos">
       <a href="http://www.commend.com" target="_blank">
         <img id="logoCommend"
@@ -52,25 +53,25 @@
       </mat-table>
     </div>
 
-    <!-- -zwei Balken, um die Speicherbelegung zu visualisieren -->
+    <!-- -zwei Balken, um die Speicherbelegung des Media- und des Audio-Speichers zu visualisieren -->
     <table class="storage">
       <tr>
         <td>Media-Speicher:</td>
         <td>
-          <meter id="MediaSpeicher" min="0" low="{{MediaLow}}" high="{{MediaHigh}}" max="{{MaxMediaValue}}" value="{{MediaValue}}"></meter>
+          <meter id="MediaSpeicher" min="0" low="{{MediaLow}}" high="{{MediaHigh}}" max="{{storage.MediaMax}}" value="{{storage.MediaUsed}}"></meter>
         </td>
-        <td> {{MediaValue}} kB / {{MaxMediaValue}} kB belegt </td>
+        <td> {{storage.MediaUsed}} kB / {{storage.MediaMax}} kB belegt </td>
       </tr>
       <tr>
         <td>Audio-Speicher:</td>
         <td>
-          <meter id="AudioSpeicher" min="0" low="{{AudioLow}}" high="{{AudioHigh}}" max="{{MaxAudioValue}}" value="{{AudioValue}}">Hallo</meter>
+          <meter id="AudioSpeicher" min="0" low="{{AudioLow}}" high="{{AudioHigh}}" max="{{storage.AudioMax}}" value="{{storage.AudioUsed}}">Hallo</meter>
         </td>
-        <td>{{AudioValue}} kB / {{MaxAudioValue}} kB belegt </td>
+        <td>{{storage.AudioUsed}} kB / {{storage.AudioMax}} kB belegt </td>
       </tr>
     </table>
 
-    <!-- Tabelle der Entities -->
+    <!-- Tabelle der geprüften Entities -->
     <div class="EntityTable">
       <mat-table #table [dataSource]="EntityDataSource">
         <!-- Name Spalte -->
@@ -83,9 +84,11 @@
         <ng-container matColumnDef="status">
           <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
           <mat-cell *matCellDef="let entity">
+            <!-- kein Fehler aufgetreten -->
             <div class="OK" *ngIf="entity.status">
-              <button mat-button disabled>{{entity.status}}</button>
+              <button mat-button class="OK-button">{{entity.status}}</button>
             </div>
+            <!-- Fehler wurde gefunden -->
             <div class="notOK" *ngIf="entity.status == false">
               <button mat-button (click)="showError(entity.name)">{{entity.status}}</button>
             </div>

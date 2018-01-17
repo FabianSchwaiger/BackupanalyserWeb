@@ -42,8 +42,13 @@ mat-table {
   top: 5px;
 }
 .OK {
-  color: black;
+  color: green;
 }
+.OK-button:hover ::ng-deep .mat-button-focus-overlay {
+/* Button mit true -- kein Hintergrund (::ng-deep, um internen Style zu verändern */
+  background-color: transparent;
+}
+
 .notOK {
   color: red;
 }
