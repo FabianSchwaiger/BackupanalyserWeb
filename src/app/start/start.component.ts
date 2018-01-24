@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 
 import { DataService } from '../data.service';
+import {Router} from '@angular/router';
 
 @Component ({
   selector: 'app-start',
@@ -11,12 +12,20 @@ import { DataService } from '../data.service';
 export class StartComponent {
 
   constructor (
-    private fileService: DataService
+    private fileService: DataService,
+    private router: Router
   ) {}
 
   // Wenn File gewählt wurde, dieses an Webserver senden
   public fileEvent($event: any) {
     const fileSelected: File = $event.target.files[0];
     this.fileService.uploadFile(fileSelected);
+    /*.subscribe( data => {
+      this.router.navigate(['/overview']); // Wird File hochgeladen -> automatisch zu Overview wechseln
+    }, error => {
+      console.log(error);
+    });
+    */
+
   }
 }

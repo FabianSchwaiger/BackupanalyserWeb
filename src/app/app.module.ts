@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
-import { MatTableModule, MatListModule, MatButtonModule, MatDialogModule, MatIconModule } from '@angular/material';
+import { MatTableModule, MatListModule, MatButtonModule, MatDialogModule, MatIconModule, MatTabsModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { StartComponent} from './start/start.component';
@@ -25,7 +25,8 @@ import { AppRoutingModule } from './app-routing.module';
     MatListModule,
     MatButtonModule,
     MatDialogModule,
-    MatIconModule
+    MatIconModule,
+    MatTabsModule
   ],
   declarations: [ AppComponent, StartComponent, OverviewComponent, ErrorDialogComponent],
   entryComponents: [ ErrorDialogComponent ],

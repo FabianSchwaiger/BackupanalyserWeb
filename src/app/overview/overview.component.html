@@ -90,7 +90,7 @@
             </div>
             <!-- Fehler wurde gefunden -->
             <div class="notOK" *ngIf="entity.status == false">
-              <button mat-button (click)="showError(entity.name)">{{entity.status}}</button>
+              <button mat-button color="warn" (click)="showError(entity.name)">{{entity.status}}</button>
             </div>
           </mat-cell>
         </ng-container>

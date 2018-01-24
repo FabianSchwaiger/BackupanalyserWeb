@@ -1,4 +1,4 @@
-import { DeviceProperties} from './DeviceProperties';
+import { DeviceProperties} from './DataTypes/DeviceProperties';
 
 export const DEVICEPROPERTIES: DeviceProperties[] = [
   { eigenschaft: 'Device-Name', aktStatus: 'SIP Station' },

@@ -7,10 +7,10 @@ import { MatDialog} from '@angular/material';
 import { ErrorDialogComponent } from '../error-dialog/error.dialog.component';
 import { DataService } from '../data.service';
 
-import { DeviceProperties} from '../DeviceProperties';
-import { Storage } from '../Storage';
-import { Entity } from '../Entity';
-import { Error } from '../Error';
+import { DeviceProperties} from '../DataTypes/DeviceProperties';
+import { Storage } from '../DataTypes/Storage';
+import { Entity } from '../DataTypes/Entity';
+import { Error } from '../DataTypes/Error';
 
 // Zu Mocking-Zwecken
 import { ENTITIES } from '../mock-Entities';

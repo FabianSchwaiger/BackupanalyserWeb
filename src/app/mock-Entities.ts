@@ -1,4 +1,4 @@
-import { Entity} from './Entity';
+import { Entity} from './DataTypes/Entity';
 
 export const ENTITIES: Entity[] = [
   {name: 'Media Store', status: false },

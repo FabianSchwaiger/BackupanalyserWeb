@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 
-import { DeviceProperties } from './DeviceProperties';
-import { Storage } from './Storage';
-import { Entity } from './Entity';
-import { Error } from './Error';
+import { DeviceProperties } from './DataTypes/DeviceProperties';
+import { Storage } from './DataTypes/Storage';
+import { Entity } from './DataTypes/Entity';
+import { Error } from './DataTypes/Error';
 
 @Injectable()
 export class DataService {
@@ -17,7 +17,7 @@ export class DataService {
   ) {}
   url: string;    // Addresse von Vici einfügen
 
-
+  // Daten von der SWAPI (StarWars-API) holen - Testen
   results: Observable<X>;
 
   getData2(): Observable<X> {
@@ -52,21 +52,32 @@ export class DataService {
   }
 
   /*
-  Zu uploadenes File und wird übergeben und hochgeladen
-  Um File hochladen zu können, wird es in FormData gewandelt
+  Zu uploadenes File wird übergeben und hochgeladen
+  Um das File hochladen zu können, wird es in FormData gewandelt
    */
   uploadFile(fileToUpload: File) {
     const fd = new FormData();
+    this.url = 'http://localhost:4200/overview';                  // Kann später Weg --> URL Vici :)
+
     fd.append('file', fileToUpload, fileToUpload.name);
-    this.http.post(this.url, fd)
-      .subscribe((response: any) => {
-          alert('Erfolgreich hochgeladen!');
-          return response;
-        }
-        , (error: any) => {
-          alert('Fehler bei Upload!\n' + error.toString());
-        });
-    this.router.navigate(['/overview']); // Wird File hochgeladen -> automatisch zu Overview wechseln
+
+    console.log('Dateiname = ' + fileToUpload.name);   // Dateiname in der Konsole anzeigen
+
+    this.http.post<File>(this.url, fd).subscribe(
+      (val) => {
+        console.log('POST call successful value returned in body', val);
+        this.router.navigate(['/overview']); // Wird File erfolgreich hochgeladen -> automatisch zu Overview wechseln
+      },
+      response => {
+        console.log('POST call in error', response);
+        alert(response.error);
+        this.router.navigate(['/overview']); // Bei Fehler nicht unbedingt wechseln
+      },
+      () => {
+        console.log('The POST observable is now completed.');
+        this.router.navigate(['/overview']); // Wird File erfolgreich hochgeladen -> automatisch zu Overview wechseln
+      });
+
   }
 
   // Falls ein Fehler auftritt, diesen auf der Konsole anzeigen

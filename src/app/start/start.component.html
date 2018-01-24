@@ -7,7 +7,7 @@
           <p mat-line>Start</p>
         </mat-list-item>
         <mat-list-item routerLink="/overview">
-          <p  mat-line>Overview</p>
+          <p mat-line>Overview</p>
         </mat-list-item>
       </mat-nav-list>
     </div>
@@ -19,6 +19,7 @@
              alt="Commend-Logo">
       </a>
       <a href="http://www.htl-braunau.at" target="_blank">
+        <!-- HTL-Logo muss im Assests-Folder sein, kann sonnst nicht geladen werden -->
         <img id="logoHTL"
              src="../assets/HTL-Logo-weiss.png"
              alt="HTL-Braunau- Logo">
@@ -33,20 +34,21 @@
 
   <main>
     <div class="description">
+      <p>
       Der Backupanalyser kann Backupfiles von Sprechstellen der Firma Commend analysieren.<br>
-      Fehler werden automatisch erkannt und können korrigiert werden.<br>
+      Die häufigsten Fehler werden automatisch erkannt und können korrigiert werden.<br>
       Analysierbare Sicherungsdateien müssen die Dateiendung .zip oder .back besitzen.
+      </p>
     </div>
-    <br>
     <div class="uplaod">
       <p>
-        Bitte wählen Sie das Backupfile ( .zip / .back ) aus:
-        <input matInput type="file" accept=".zip,.back" (change)="fileEvent($event)">
+        Bitte wählen Sie das Backupfile ( .zip / .back ) aus:<br>
+        <input id="selectFile "matInput type="file" accept=".zip,.back" (change)="fileEvent($event)">
       </p>
     </div>
   </main>
 
- <!-- Fehler im HTML, damit Loading-Screen bleibt  <div *ngFor="let x=0"></div> -->
+ <!-- Fehler im HTML, damit Loading-Screen bleibt:  <div *ngFor="let x=0"></div> -->
 
 </body>
 </html>

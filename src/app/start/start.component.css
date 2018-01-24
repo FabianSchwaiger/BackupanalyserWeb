@@ -1,6 +1,32 @@
-h2 {
-  color: #2295db;
+.description p {
+  line-height: 200%;
+  margin-bottom: 40px;
+  margin-left: 2%;
 }
 
-.description p {
+.uplaod {
+  margin-left: 17%;
+}
+input {
+  margin-top: 7px;
+  margin-left: 10%;
+}
+
+/* File-Select Button verändern */
+::-webkit-file-upload-button {
+
+  border-radius: 10px;
+  border: 2px solid gray;
+  width: 150px;
+  height: 30px;
+  text-align: center;
+}
+
+/* Blaue Linie bei auswählen entfernen */
+::-webkit-file-upload-button:active, ::-webkit-file-upload-button:focus {
+  outline: none;
+}
+
+::-webkit-file-upload-button:active {
+  background-color: gray;
 }
