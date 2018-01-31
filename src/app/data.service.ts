@@ -15,7 +15,7 @@ export class DataService {
     private http: HttpClient,
     private router: Router
   ) {}
-  url: string;    // Addresse von Vici einfügen
+  url = 'http://25.20.222.23:8090/api/BackupAnalyser/';    // Addresse von Vici einfügen 10.13.243.18
 
   // Daten von der SWAPI (StarWars-API) holen - Testen
   results: Observable<X>;
@@ -57,13 +57,14 @@ export class DataService {
    */
   uploadFile(fileToUpload: File) {
     const fd = new FormData();
-    this.url = 'http://localhost:4200/overview';                  // Kann später Weg --> URL Vici :)
+    const urlSend = this.url + 'upload';
+    alert(urlSend);
 
     fd.append('file', fileToUpload, fileToUpload.name);
 
     console.log('Dateiname = ' + fileToUpload.name);   // Dateiname in der Konsole anzeigen
 
-    this.http.post<File>(this.url, fd).subscribe(
+    this.http.post<File>(urlSend, fd).subscribe(
       (val) => {
         console.log('POST call successful value returned in body', val);
         this.router.navigate(['/overview']); // Wird File erfolgreich hochgeladen -> automatisch zu Overview wechseln
