@@ -10,7 +10,7 @@ import {Router} from '@angular/router';
 })
 
 export class StartComponent {
-
+selected: File;
   constructor (
     private fileService: DataService,
     private router: Router
@@ -26,6 +26,11 @@ export class StartComponent {
       console.log(error);
     });
     */
+
+  }
+
+  public fileEventTest($event: any) {
+    this.selected = $event.target.files[0];
 
   }
 }

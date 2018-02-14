@@ -113,7 +113,7 @@ export class OverviewComponent implements OnInit {
     this.openDialog(errorName, errorDescription);
   }
 
-  openDialog(errorName: string, errorDescription: string ): void {
+  openDialog(errorName: string, errorDescription: string): void {
   // Dialog zum Anzeigen eines Fehlers öffnen
     // Für Dialog zu ladende Component sowie Breite und evtl. benötigte Daten angeben
     const dialogRef = this.dialog.open(ErrorDialogComponent, {
