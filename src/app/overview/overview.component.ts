@@ -57,17 +57,17 @@ export class OverviewComponent implements OnInit {
     // this.setValue(150, 75);
 
     // this.showData();
-/*
+
     // Daten vom Server bekommen
-    this.dataService.getDeviceProperties().subscribe( result => { this.deviceProperties = result; });
-    this.dataService.getStorage().subscribe( result => { this.storage = result; });
-    this.dataService.getEntities().subscribe( result => { this.entities = result; });
-    this.dataService.getErrors().subscribe( result => { this.errors = result; });
-*/
+    // this.dataService.getDeviceProperties().subscribe( result => { this.deviceProperties = result; });
+    // this.dataService.getStorage().subscribe( result => { this.storage = result; });
+    // this.dataService.getCheckedEntities().subscribe( result => { this.entities = result; });
+    // this.dataService.getErrors().subscribe( result => { this.errors = result; });   // Aufruf funktioniert, Umsetzung nicht
+
     this.deviceProperties = DEVICEPROPERTIES;
     this.storage = { MediaUsed: 90, MediaMax: 100, AudioUsed: 25, AudioMax: 100 };
     this.entities = ENTITIES;
-    this.errors = [{ name: 'Media Store', description: 'File nicht vohanden' }];
+    // this.errors = [{ name: 'Media Store', description: 'File nicht vohanden' }];
 
     // Werte der Balken setzten bei > Low -> gelb, bei > High -> rot
     this.MediaHigh = this.storage.MediaMax * 0.90;

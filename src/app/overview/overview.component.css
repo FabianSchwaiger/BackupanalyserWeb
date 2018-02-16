@@ -51,3 +51,9 @@ mat-table {
 .notOK {
   color: red;
 }
+
+#downloadButton {
+  border-radius: 10px;
+  border: 2px solid gray;
+}
+

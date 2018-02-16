@@ -19,6 +19,7 @@ selected: File;
   // Wenn File gewählt wurde, dieses an Webserver senden
   public fileEvent($event: any) {
     const fileSelected: File = $event.target.files[0];
+    alert('Uploading');
     this.fileService.uploadFile(fileSelected);
     /*.subscribe( data => {
       this.router.navigate(['/overview']); // Wird File hochgeladen -> automatisch zu Overview wechseln
@@ -29,8 +30,4 @@ selected: File;
 
   }
 
-  public fileEventTest($event: any) {
-    this.selected = $event.target.files[0];
-
-  }
 }

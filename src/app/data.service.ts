@@ -15,7 +15,7 @@ export class DataService {
     private http: HttpClient,
     private router: Router
   ) {}
-  url = 'http://25.20.222.23:8090/api/BackupAnalyser/';    // Addresse von Vici einfügen 10.13.243.18
+  url = 'http://25.20.222.23:8090/api/BackupAnalyser';    // Addresse von Vici einfügen 10.13.243.18
 
   // Daten von der SWAPI (StarWars-API) holen - Testen
   results: Observable<X>;
@@ -30,37 +30,42 @@ export class DataService {
   getDeviceProperties(): Observable<DeviceProperties[]> {
   // DeviceProperties - Daten von Server holen
     this.url = this.url + '/properties';
+    console.log('Recieving Device Properties');
     return this.http.get<DeviceProperties[]>(this.url);
   }
 
   getStorage(): Observable<Storage> {
   // Storage - Daten von Server holen
     this.url = this.url + '/storage';
+    console.log('Recieving Storage Information');
     return this.http.get<Storage>(this.url);
   }
 
-  getEntities(): Observable<Entity[]> {
+  getCheckedEntities(): Observable<Entity[]> {
   // Entity - Daten von Server holen
     this.url = this.url + '/entities';
+    console.log('Recieving Entities');
     return this.http.get<Entity[]>(this.url);
   }
 
   getErrors(): Observable<Error[]> {
   // Error - Daten von Server holen
-    this.url = this.url + '/errors';
+    this.url = this.url + '/Errors';
+    console.log('Recieving Errors');
     return this.http.get<Error[]>(this.url);
   }
 
+  // Upload funktioniert bereits
   /*
   Zu uploadenes File wird übergeben und hochgeladen
   Um das File hochladen zu können, wird es in FormData gewandelt
    */
   uploadFile(fileToUpload: File) {
     const fd = new FormData();
-    const urlSend = this.url + 'upload';
+    const urlSend = this.url + '/upload';
     alert(urlSend);
 
-    fd.append('file', fileToUpload, fileToUpload.name);
+    fd.append('datei', fileToUpload, fileToUpload.name);
 
     console.log('Dateiname = ' + fileToUpload.name);   // Dateiname in der Konsole anzeigen
 
