@@ -29,11 +29,11 @@ export class OverviewComponent implements OnInit {
   errors: Error[];
 
   // Werte für Balken
-  MediaHigh: number;
-  MediaLow: number;
+  MediaHigh = 0;
+  MediaLow = 0;
   // Audio-Werte
-  AudioHigh: number;
-  AudioLow: number;
+  AudioHigh = 0;
+  AudioLow = 0;
 
   // Entity Table
   displayedEntityColumns = ['name', 'status'];
@@ -41,13 +41,15 @@ export class OverviewComponent implements OnInit {
 
   // Entity Table
   displayedDeviceColumns = ['eigenschaften', 'aktueller status'];
-  DeviceDataSource = new DeviceDataSource();
+  DeviceDataSource = new DeviceDataSource(this.dataService);
+
 
   results: X;
 
+
   constructor(
     public dialog: MatDialog,
-    private dataService: DataService
+    public dataService: DataService
   ) {}
 
 
@@ -64,7 +66,7 @@ export class OverviewComponent implements OnInit {
     // this.dataService.getCheckedEntities().subscribe( result => { this.entities = result; });
     // this.dataService.getErrors().subscribe( result => { this.errors = result; });   // Aufruf funktioniert, Umsetzung nicht
 
-    this.deviceProperties = DEVICEPROPERTIES;
+    // this.deviceProperties = DEVICEPROPERTIES;
     this.storage = { MediaUsed: 90, MediaMax: 100, AudioUsed: 25, AudioMax: 100 };
     this.entities = ENTITIES;
     // this.errors = [{ name: 'Media Store', description: 'File nicht vohanden' }];
@@ -74,6 +76,7 @@ export class OverviewComponent implements OnInit {
     this.MediaLow = this.storage.MediaMax * 0.75;
     this.AudioHigh = this.storage.AudioMax * 0.85;
     this.AudioLow = this.storage.AudioMax * 0.75;
+
   }
 
   showData(): void {
@@ -86,6 +89,7 @@ export class OverviewComponent implements OnInit {
     });
     console.log('Test');
   }
+
 
   /*
   varyValue() {
@@ -159,28 +163,71 @@ export class EntityDataSource extends DataSource<any> {
 
 // Werte für Device-Property Tabelle bekommen
 export class DeviceDataSource extends DataSource<any> {
-  private dataService: DataService;
+  constructor (private dataService: DataService) { super(); }
   deviceProperties: DeviceProperties[];
 
-  // deviceProperties = DEVICEPROPERTIES;    // Von Server abfragen
 
   // Connect, damit Tabelle Daten bekommt
   connect(): Observable<DeviceProperties[]> {
     // Daten vom Server abfragen
-    // this.dataService.getDeviceProperties().subscribe( result => { this.deviceProperties = result; });
+     this.deviceProperties = DEVICEPROPERTIES;       // Mocking
 
-    this.deviceProperties = DEVICEPROPERTIES;       // Mocking
     // Daten an Tabelle übergeben
+
+    // Funktioniert nicht!
+    this.dataService.getDeviceProperties().subscribe(data => {
+      this.deviceProperties  = [
+        { eigenschaft: 'Device-Name', aktStatus: data.applicationName },
+        { eigenschaft: 'Application-Version', aktStatus: data.applicationVersion },
+        { eigenschaft: 'Image-Version', aktStatus: data.imageVersion },
+        { eigenschaft: 'OS', aktStatus: data.os },
+        { eigenschaft: 'Java-Version', aktStatus: data.javaVersion },
+        { eigenschaft: 'Device-Type', aktStatus: data.deviceType }
+      ];
+    });
+
     return Observable.of(this.deviceProperties);
+  }
+
+  createDeviceProperty(data: Observable<RecievedDeviceProperties>): DeviceProperties[] {
+
+    return null;
   }
 
   disconnect() {}
 }
+/*
+// Werte für Device-Property Tabelle bekommen
+export class DeviceDataSource extends DataSource<any> {
+  private dataService = new DataService(null, null);
+  deviceProperties: DeviceProperties[];
 
-// Test-Interface
+  // Connect, damit Tabelle Daten bekommt
+  connect(): Observable<DeviceProperties[]> {
+    // Daten vom Server abfragen
+    this.deviceProperties = DEVICEPROPERTIES;       // Mocking
+
+    // Daten an Tabelle übergeben
+    return Observable.of(this.deviceProperties);
+
+    // return this.dataService.getDeviceProperties();
+  }
+
+  disconnect() {}
+}
+ */
 interface X {
   count: number;
   next: string;
   previous: string;
   results: JSON[];
+}
+
+interface RecievedDeviceProperties {
+  applicationVersion: string;
+  imageVersion: string;
+  deviceType: string;
+  os: string;
+  javaVersion: string;
+  applicationName: string;
 }
