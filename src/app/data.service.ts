@@ -3,9 +3,9 @@ import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 
-import { DeviceProperties } from './DataTypes/DeviceProperties';
-import { Storage } from './DataTypes/Storage';
-import { Entity } from './DataTypes/Entity';
+import { DeviceProperties, ReceivedDeviceProperties } from './DataTypes/DeviceProperties';
+import { Storage, ReceivedStorage } from './DataTypes/Storage';
+import { Entity, ReceivedEntities } from './DataTypes/Entity';
 import { Error } from './DataTypes/Error';
 
 @Injectable()
@@ -15,93 +15,53 @@ export class DataService {
     private http: HttpClient,
     private router: Router
   ) {}
-  url = 'http://25.20.222.23:8090/api/BackupAnalyser';    // IP ist aktuelle Adresse von Hamachi
+  url = 'http://25.20.222.23:8090/api/BackupAnalyser';    // IP ist aktuelle Server-Adresse von Hamachi
 
-  // Daten von der SWAPI (StarWars-API) holen - Testen
-  results: Observable<X>;
-
-  getData2(): Observable<X> {
-    const url = 'https://swapi.co/api/planets';
-    this.results = this.http.get<X>(url);
-    return this.results;
-  }
-
-
-
-
-
-
-
-
-
-
-  getDeviceProperties(): Observable<RecievedDeviceProperties> {
+  getDeviceProperties(): Observable<ReceivedDeviceProperties> {
   // DeviceProperties - Daten von Server holen
     const url = this.url + '/DeviceDescription';
-    // this.url = 'https://swapi.co/api/planets/';
+
     console.log('Recieving Device Properties');
 
-    let temp;
-    console.log(JSON.stringify(this.http.get<string[]>(url)));
-
-    return this.http.get<RecievedDeviceProperties>(url);
+    return this.http.get<ReceivedDeviceProperties>(url);
   }
 
-  extractDeviceProperties(data: RecievedDeviceProperties):  Observable<DeviceProperties[]> {
-    // let data: RecievedDeviceProperties;
-    console.log('Transforming Device Properties');
+  getDevicePropertiesMock(): Observable<ReceivedDeviceProperties> {
 
-    // dataObs.subscribe( results => { data = results; });
-    const result: DeviceProperties[] = [
-      { eigenschaft: 'Device-Name', aktStatus: data.applicationName },
-      { eigenschaft: 'Application-Version', aktStatus: data.applicationVersion },
-      { eigenschaft: 'Image-Version', aktStatus: data.imageVersion },
-      { eigenschaft: 'OS', aktStatus: data.os },
-      { eigenschaft: 'Java-Version', aktStatus: data.javaVersion },
-      { eigenschaft: 'Device-Type', aktStatus: data.deviceType }
-    ];
+    console.log('Recieving Device Properties');
 
-  return  Observable.of(result);
-}
+    const data: ReceivedDeviceProperties = {
+      applicationVersion: '0.0.4570.develop.3b1ac96ff',
+      imageVersion: '01.07.01',
+      deviceType: 'device.type.ws311vcmda',
+      os: 'Linux',
+      javaVersion: '1.8.0_121',
+      applicationName: 'SIP Station'
+    };
 
-  extractDeviceProperties2(dataObs: Observable<RecievedDeviceProperties>):  Observable<DeviceProperties[]> {
-    // let data: RecievedDeviceProperties;
-    console.log('Transforming Device Properties');
-    let data;
-    console.log(dataObs);
-
-    dataObs.subscribe(result => {data = result; } );
-
-    console.log(data.os);
-    const result: DeviceProperties[] = [
-      { eigenschaft: 'Device-Name', aktStatus: data.applicationName },
-      { eigenschaft: 'Application-Version', aktStatus: data.applicationVersion },
-      { eigenschaft: 'Image-Version', aktStatus: data.imageVersion },
-      { eigenschaft: 'OS', aktStatus: data.os },
-      { eigenschaft: 'Java-Version', aktStatus: data.javaVersion },
-      { eigenschaft: 'Device-Type', aktStatus: data.deviceType }
-    ];
-
-    return  Observable.of(result);
+    return Observable.of(data);
   }
 
 
-
-
-
-
-  getStorage(): Observable<Storage> {
+  getStorage(): Observable<ReceivedStorage> {
   // Storage - Daten von Server holen
     const url = this.url + '/storage';
     console.log('Recieving Storage Information');
-    return this.http.get<Storage>(url);
+    return this.http.get<ReceivedStorage>(url);
   }
 
-  getCheckedEntities(): Observable<Entity[]> {
+  getStorageMock(): Observable<Storage> {
+
+    const storage = { MediaUsed: 90, MediaMax: 100, AudioUsed: 25, AudioMax: 100 };
+
+    return Observable.of(storage);
+  }
+
+  getEntities(): Observable<ReceivedEntities> {
   // Entity - Daten von Server holen
     const url = this.url + '/entities';
     console.log('Recieving Entities');
-    return this.http.get<Entity[]>(url);
+    return this.http.get<ReceivedEntities>(url);
   }
 
   getErrors(): Observable<Error[]> {
@@ -111,7 +71,6 @@ export class DataService {
     return this.http.get<Error[]>(url);
   }
 
-  // Upload funktioniert bereits
   /*
   Zu uploadenes File wird übergeben und hochgeladen
   Um das File hochladen zu können, wird es in FormData gewandelt
@@ -147,20 +106,4 @@ export class DataService {
     console.error('An error occurred: ' + error.status + ' ' + error.statusText, error);
     return Promise.reject(error.message || error);
   }
-}
-
-interface X {
-  count: number;
-  next: string;
-  previous: string;
-  results: JSON[];
-}
-
-interface RecievedDeviceProperties {
-  applicationVersion: string;
-  imageVersion: string;
-  deviceType: string;
-  os: string;
-  javaVersion: string;
-  applicationName: string;
 }

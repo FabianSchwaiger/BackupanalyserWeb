@@ -20,7 +20,7 @@ mat-table {
   margin-bottom: 5px;
   background-color: white;
 
-  width: 100%;
+  width: 675px;
   border-radius: 5px;
   border-collapse: collapse;
   font-size: 16px;
@@ -37,9 +37,13 @@ mat-table {
   border-bottom: solid 1px lightgray;
 }
 
+.DeviceProperty {
+  width: 675px;
+}
 .EntityTable {
   position: relative;
   top: 5px;
+  width: 675px;
 }
 .OK {
   color: green;
@@ -56,6 +60,8 @@ mat-table {
   border-radius: 10px;
   border: 2px solid gray;
   position: relative;
-  left: 30%;
+  left: 198px;
+  width: 275px;
+  margin-bottom: 100px;
 }
 

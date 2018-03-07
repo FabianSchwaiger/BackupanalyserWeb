@@ -1,9 +1,5 @@
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 
-html {
-  background-color: black;
-}
-
 h1 {
   color: #369;
   font-size: 250%;
@@ -13,6 +9,7 @@ h1 {
 html {
   background-color: #e6e6e6;
   font-family: Roboto, "Helvetica Neue", sans-serif;
+  overflow-x: hidden;
 }
 
 /*

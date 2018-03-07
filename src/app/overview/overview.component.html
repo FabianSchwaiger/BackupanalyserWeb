@@ -43,7 +43,7 @@
         </ng-container>
 
         <!-- Status Spalte -->
-        <ng-container matColumnDef="aktueller status">
+        <ng-container matColumnDef="aktStatus">
           <mat-header-cell *matHeaderCellDef> aktueller Stand </mat-header-cell>
           <mat-cell *matCellDef="let deviceProperty"> {{deviceProperty.aktStatus}} </mat-cell>
         </ng-container>
@@ -86,7 +86,7 @@
           <mat-cell *matCellDef="let entity">
             <!-- kein Fehler aufgetreten -->
             <div class="OK" *ngIf="entity.status">
-              <button mat-button class="OK-button">{{entity.status}}</button>
+              <button mat-button class="OK-button" disableRipple>{{entity.status}}</button>
             </div>
             <!-- Fehler wurde gefunden -->
             <div class="notOK" *ngIf="entity.status == false">
@@ -106,6 +106,8 @@
       <br>
       <button mat-button id="downloadButton">Korrigiertes Backupfile herunterladen</button>
     </form>
+
+    <mat-spinner></mat-spinner>
 
   </main>
 </body>

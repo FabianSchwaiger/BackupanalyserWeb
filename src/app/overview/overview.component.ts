@@ -7,8 +7,8 @@ import { MatDialog} from '@angular/material';
 import { ErrorDialogComponent } from '../error-dialog/error.dialog.component';
 import { DataService } from '../data.service';
 
-import { DeviceProperties} from '../DataTypes/DeviceProperties';
-import { Storage } from '../DataTypes/Storage';
+import { DeviceProperties, ReceivedDeviceProperties} from '../DataTypes/DeviceProperties';
+import { Storage, ReceivedStorage } from '../DataTypes/Storage';
 import { Entity } from '../DataTypes/Entity';
 import { Error } from '../DataTypes/Error';
 
@@ -39,13 +39,9 @@ export class OverviewComponent implements OnInit {
   displayedEntityColumns = ['name', 'status'];
   EntityDataSource = new EntityDataSource();
 
-  // Entity Table
-  displayedDeviceColumns = ['eigenschaften', 'aktueller status'];
-  DeviceDataSource = new DeviceDataSource(this.dataService);
-
-
-  results: X;
-
+  // Device-Properties Table
+  displayedDeviceColumns = ['eigenschaften', 'aktStatus'];
+  DeviceDataSource: DeviceProperties[];
 
   constructor(
     public dialog: MatDialog,
@@ -56,40 +52,13 @@ export class OverviewComponent implements OnInit {
   ngOnInit(): void {
   // ngOnInit wird bei laden der Component aufgerufen -> Alle Werte setzen
 
-    // this.setValue(150, 75);
+    this.setDeviceProperties();
+    this.setMediaStorage();
 
-    // this.showData();
 
-    // Daten vom Server bekommen
-    // this.dataService.getDeviceProperties().subscribe( result => { this.deviceProperties = result; });
-    // this.dataService.getStorage().subscribe( result => { this.storage = result; });
-    // this.dataService.getCheckedEntities().subscribe( result => { this.entities = result; });
-    // this.dataService.getErrors().subscribe( result => { this.errors = result; });   // Aufruf funktioniert, Umsetzung nicht
-
-    // this.deviceProperties = DEVICEPROPERTIES;
-    this.storage = { MediaUsed: 90, MediaMax: 100, AudioUsed: 25, AudioMax: 100 };
     this.entities = ENTITIES;
     // this.errors = [{ name: 'Media Store', description: 'File nicht vohanden' }];
-
-    // Werte der Balken setzten bei > Low -> gelb, bei > High -> rot
-    this.MediaHigh = this.storage.MediaMax * 0.90;
-    this.MediaLow = this.storage.MediaMax * 0.75;
-    this.AudioHigh = this.storage.AudioMax * 0.85;
-    this.AudioLow = this.storage.AudioMax * 0.75;
-
   }
-
-  showData(): void {
-  // Daten der SW-API zum Testen des HTTP-Clients anzeigen
-
-    this.dataService.getData2().subscribe( result => {
-      this.results = result;
-      console.log(this.results.results[0]);
-      console.log(this.results.next);
-    });
-    console.log('Test');
-  }
-
 
   /*
   varyValue() {
@@ -138,8 +107,49 @@ export class OverviewComponent implements OnInit {
         }
       }
     }
-    // Kein Fehler gefunden
+    // Keine Fehler-Beschreibung gefunden
     return 'No Error Description Found!';
+  }
+
+  setDeviceProperties() {
+    // Für volle Funktion das Mock entfernen
+    this.dataService.getDevicePropertiesMock().subscribe(data => {
+      this.DeviceDataSource = [
+        { eigenschaft: 'Device-Name', aktStatus: data.applicationName },
+        { eigenschaft: 'Application-Version', aktStatus: data.applicationVersion },
+        { eigenschaft: 'Image-Version', aktStatus: data.imageVersion },
+        { eigenschaft: 'OS', aktStatus: data.os },
+        { eigenschaft: 'Java-Version', aktStatus: data.javaVersion },
+        { eigenschaft: 'Device-Type', aktStatus: data.deviceType }
+      ];
+    });
+  }
+
+  setMediaStorage() {
+    // Für volle Funktion Mock entfernen
+    // Daten vom Server holen
+    this.dataService.getStorageMock().subscribe(data => {
+      // genaue Namen einfügen
+      this.storage = {
+        MediaUsed: data.MediaUsed,
+        MediaMax: data.MediaMax,
+        AudioUsed: data.AudioUsed,
+        AudioMax: data.AudioMax
+      };
+      // Werte der Balken setzten bei > Low -> gelb, bei > High -> rot
+      this.MediaHigh = this.storage.MediaMax * 0.90;
+      this.MediaLow = this.storage.MediaMax * 0.75;
+      this.AudioHigh = this.storage.AudioMax * 0.85;
+      this.AudioLow = this.storage.AudioMax * 0.75;
+    });
+  }
+
+  setEntities() {
+    this.dataService.getEntities().subscribe(data => {
+      this.entities = [
+        { name: 'Device-Name', status: data.a },
+      ];
+    });
   }
 }
 
@@ -189,11 +199,6 @@ export class DeviceDataSource extends DataSource<any> {
     return Observable.of(this.deviceProperties);
   }
 
-  createDeviceProperty(data: Observable<RecievedDeviceProperties>): DeviceProperties[] {
-
-    return null;
-  }
-
   disconnect() {}
 }
 /*
@@ -216,18 +221,3 @@ export class DeviceDataSource extends DataSource<any> {
   disconnect() {}
 }
  */
-interface X {
-  count: number;
-  next: string;
-  previous: string;
-  results: JSON[];
-}
-
-interface RecievedDeviceProperties {
-  applicationVersion: string;
-  imageVersion: string;
-  deviceType: string;
-  os: string;
-  javaVersion: string;
-  applicationName: string;
-}
