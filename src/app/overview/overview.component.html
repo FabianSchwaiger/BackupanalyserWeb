@@ -60,14 +60,14 @@
         <td>
           <meter id="MediaSpeicher" min="0" low="{{MediaLow}}" high="{{MediaHigh}}" max="{{storage.MediaMax}}" value="{{storage.MediaUsed}}"></meter>
         </td>
-        <td> {{storage.MediaUsed}} kB / {{storage.MediaMax}} kB belegt </td>
+        <td> {{storage.MediaUsed}} MB / {{storage.MediaMax}} MB belegt </td>
       </tr>
       <tr>
         <td>Audio-Speicher:</td>
         <td>
           <meter id="AudioSpeicher" min="0" low="{{AudioLow}}" high="{{AudioHigh}}" max="{{storage.AudioMax}}" value="{{storage.AudioUsed}}">Hallo</meter>
         </td>
-        <td>{{storage.AudioUsed}} kB / {{storage.AudioMax}} kB belegt </td>
+        <td>{{storage.AudioUsed}} MB / {{storage.AudioMax}} MB belegt </td>
       </tr>
     </table>
 
@@ -86,11 +86,11 @@
           <mat-cell *matCellDef="let entity">
             <!-- kein Fehler aufgetreten -->
             <div class="OK" *ngIf="entity.status">
-              <button mat-button class="OK-button" disableRipple>{{entity.status}}</button>
+              <button mat-button class="OK-button" disabled><mat-icon>done</mat-icon></button>
             </div>
             <!-- Fehler wurde gefunden -->
             <div class="notOK" *ngIf="entity.status == false">
-              <button mat-button color="warn" (click)="showError(entity.name)">{{entity.status}}</button>
+              <button mat-button color="warn" (click)="showError(entity.name)"><mat-icon>close</mat-icon></button>
             </div>
           </mat-cell>
         </ng-container>
@@ -102,12 +102,14 @@
 
 
 <!-- Korrektes Backupfile herunterladen -->
-    <form method="get" action="http://25.20.222.23:8090/api/BackupAnalyser/repair">
+    <form method="get" action="http://localhost:8090/api/BackupAnalyser/repair">
       <br>
-      <button mat-button id="downloadButton">Korrigiertes Backupfile herunterladen</button>
+      <button mat-button id="downloadButton" (click)="repair()">
+        <mat-icon>file_download</mat-icon>  Korrigiertes Backupfile herunterladen
+      </button>
     </form>
 
-    <mat-spinner></mat-spinner>
+
 
   </main>
 </body>

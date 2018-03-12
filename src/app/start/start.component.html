@@ -41,33 +41,9 @@
       </p>
     </div>
     <div class="uplaod">
-      <!--
-      <form method="post" enctype="multipart/form-data" action= "http://25.20.222.23:8090/api/BackupAnalyser/upload">
-        <label>Wählen Sie eine Textdatei (*.txt, *.html usw.) von Ihrem Rechner aus.
-          <script type="text/javascript"></script>
-          <input name="datei" type="file" size="50" accept=".zip,.bak" (change)="fileEvent($event)">
-        </label>
-        <button>upload</button>
-      </form>
-      -->
-
       <!-- File an den Server hochladen -->
       <input name="datei" type="file" size="50" accept=".zip,.bak" (change)="fileEvent($event)">
-
-
-
-
-
     </div>
-
- <!--
-    <form method="post" enctype="multipart/form-data" action= "http://25.20.222.23:8090/api/BackupAnalyser/upload">
-      <label>Wählen Sie eine Textdatei (*.txt, *.html usw.) von Ihrem Rechner aus.
-        <input name="datei" type="file" size="50" accept=".zip,.bak">
-      </label>
-      <button>upload</button>
-    </form>
- -->
   </main>
 
  <!-- Fehler im HTML, damit Loading-Screen bleibt:  <div *ngFor="let x=0"></div> -->

@@ -45,13 +45,10 @@ mat-table {
   top: 5px;
   width: 675px;
 }
-.OK {
+.OK :disabled{
   color: green;
 }
-.OK-button:hover ::ng-deep .mat-button-focus-overlay {
-/* Button mit true -- kein Hintergrund bei hovern (::ng-deep, um internen Style zu verändern -alt: /deep/ */
-  background-color: transparent;
-}
+
 .notOK {
   color: red;
 }
@@ -60,8 +57,9 @@ mat-table {
   border-radius: 10px;
   border: 2px solid gray;
   position: relative;
+  padding-left: 8px;
   left: 198px;
-  width: 275px;
+  width: 280px;
   margin-bottom: 100px;
 }
 

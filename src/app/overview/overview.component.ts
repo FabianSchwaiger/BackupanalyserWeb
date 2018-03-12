@@ -151,6 +151,12 @@ export class OverviewComponent implements OnInit {
       ];
     });
   }
+
+  repair() {
+    for ( let i = 0; i < this.entities.length; i++) {
+      this.entities[i].status = true;
+    }
+  }
 }
 
 // Werte für Entity-Tabelle bekommen

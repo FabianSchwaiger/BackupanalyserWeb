@@ -10,6 +10,7 @@ html {
   background-color: #e6e6e6;
   font-family: Roboto, "Helvetica Neue", sans-serif;
   overflow-x: hidden;
+  overflow-y: scroll;
 }
 
 /*

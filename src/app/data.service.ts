@@ -15,7 +15,7 @@ export class DataService {
     private http: HttpClient,
     private router: Router
   ) {}
-  url = 'http://25.20.222.23:8090/api/BackupAnalyser';    // IP ist aktuelle Server-Adresse von Hamachi
+  url = 'http://localhost:8090/api/BackupAnalyser';    // IP ist aktuelle Server-Adresse von Hamachi 25.20.222.23
 
   getDeviceProperties(): Observable<ReceivedDeviceProperties> {
   // DeviceProperties - Daten von Server holen
@@ -51,7 +51,7 @@ export class DataService {
   }
 
   getStorageMock(): Observable<Storage> {
-
+    console.log('Recieving Storage Information');
     const storage = { MediaUsed: 90, MediaMax: 100, AudioUsed: 25, AudioMax: 100 };
 
     return Observable.of(storage);
@@ -78,7 +78,6 @@ export class DataService {
   uploadFile(fileToUpload: File) {
     const fd = new FormData();
     const urlSend = this.url + '/upload';
-    alert(urlSend);
 
     fd.append('datei', fileToUpload, fileToUpload.name);
 
@@ -91,7 +90,7 @@ export class DataService {
       },
       response => {
         console.log('POST call in error', response);
-        alert(response.error);
+        console.error(response.error);
         this.router.navigate(['/overview']); // Bei Fehler nicht unbedingt wechseln
       },
       () => {
