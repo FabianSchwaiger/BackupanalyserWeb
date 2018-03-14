@@ -45,31 +45,50 @@ export class DataService {
 
   getStorage(): Observable<ReceivedStorage> {
   // Storage - Daten von Server holen
-    const url = this.url + '/storage';
+    const url = this.url + '/Space';
     console.log('Recieving Storage Information');
     return this.http.get<ReceivedStorage>(url);
   }
 
-  getStorageMock(): Observable<Storage> {
+  getStorageMock(): Observable<ReceivedStorage> {
     console.log('Recieving Storage Information');
-    const storage = { MediaUsed: 90, MediaMax: 100, AudioUsed: 25, AudioMax: 100 };
+    const storage = { snapshots_usedSpace: 11992, snapshots_maxSpace: 30000000, sounds_usedSpace: 2532831, sounds_maxSpace: 15000000 };
 
     return Observable.of(storage);
   }
 
   getEntities(): Observable<ReceivedEntities> {
   // Entity - Daten von Server holen
-    const url = this.url + '/entities';
+    const url = this.url + '/CheckResults';
     console.log('Recieving Entities');
     return this.http.get<ReceivedEntities>(url);
   }
 
-  getErrors(): Observable<Error[]> {
+  getEntitiesMock(): Observable<ReceivedEntities> {
+    // Entity - Daten von Server holen
+    const url = this.url + '/CheckResults';
+    console.log('Recieving Entities');
+    return this.http.get<ReceivedEntities>(url);
+  }
+
+  getErrors(): Observable<string> {
   // Error - Daten von Server holen
     const url = this.url + '/Errors';
     console.log('Recieving Errors');
-    return this.http.get<Error[]>(url);
+    return this.http.get<string>(url);
   }
+
+  getErrorsMock(): Observable<string> {
+    // Error - Daten von Server holen
+    const errorsEx = '"com.commend.activity.http.HttpAction.json": "_type does not exist",' +
+      '"com.commend.platform.mediastore.Media.json": "Entity[1] in the directory...",' +
+      '"com.commend.platform.mediastore.mediaCategory.json": "Entity[2]- usedSpace...",' +
+      '"com.commend.device.config.Led.json": "Wrong deviceDescription"';
+    console.log('Recieving Errors');
+    return Observable.of(errorsEx);
+  }
+
+
 
   /*
   Zu uploadenes File wird übergeben und hochgeladen

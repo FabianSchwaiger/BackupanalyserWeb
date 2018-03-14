@@ -6,6 +6,7 @@ import { MatDialog} from '@angular/material';
 
 import { ErrorDialogComponent } from '../error-dialog/error.dialog.component';
 import { DataService } from '../data.service';
+import { EntityService } from '../entity.service';
 
 import { DeviceProperties, ReceivedDeviceProperties} from '../DataTypes/DeviceProperties';
 import { Storage, ReceivedStorage } from '../DataTypes/Storage';
@@ -45,19 +46,23 @@ export class OverviewComponent implements OnInit {
 
   constructor(
     public dialog: MatDialog,
-    public dataService: DataService
+    public dataService: DataService,
+    private entityService: EntityService
   ) {}
 
 
   ngOnInit(): void {
   // ngOnInit wird bei laden der Component aufgerufen -> Alle Werte setzen
 
+    this.errors = new Array<Error>(100);
+
+
     this.setDeviceProperties();
     this.setMediaStorage();
 
-
     this.entities = ENTITIES;
-    // this.errors = [{ name: 'Media Store', description: 'File nicht vohanden' }];
+
+    this.setErrors();
   }
 
   /*
@@ -90,7 +95,7 @@ export class OverviewComponent implements OnInit {
   // Dialog zum Anzeigen eines Fehlers öffnen
     // Für Dialog zu ladende Component sowie Breite und evtl. benötigte Daten angeben
     const dialogRef = this.dialog.open(ErrorDialogComponent, {
-      width: '32%',
+      width: '450px',
       data: { name: errorName, description: errorDescription }
     });
 
@@ -100,15 +105,16 @@ export class OverviewComponent implements OnInit {
   getError(errorName: string): string {
   // Fehlermeldung für speziellen Fehler finden und zurückgeben (für Anzeige)
     if (this.errors != null) {
-      for (let i = 0; i < this.errors.length; i++) {
-        if (errorName === this.errors[i].name) {
-          return this.errors[i].description;
-
+      for (let i = 0; i < this.errors.length && this.errors[i] != null; i++) {
+        if ( this.errors[i] != null) {
+          if (errorName === this.errors[i].name) {
+            return this.errors[i].description;
+          }
         }
       }
     }
     // Keine Fehler-Beschreibung gefunden
-    return 'No Error Description Found!';
+    return 'Keine Fehlerbeschreibung gefunden!';
   }
 
   setDeviceProperties() {
@@ -131,10 +137,10 @@ export class OverviewComponent implements OnInit {
     this.dataService.getStorageMock().subscribe(data => {
       // genaue Namen einfügen
       this.storage = {
-        MediaUsed: data.MediaUsed,
-        MediaMax: data.MediaMax,
-        AudioUsed: data.AudioUsed,
-        AudioMax: data.AudioMax
+        MediaUsed: Math.round(data.snapshots_usedSpace / 10000) / 10,
+        MediaMax:  Math.round(data.snapshots_maxSpace / 10000) / 10,
+        AudioUsed:  Math.round(data.sounds_usedSpace / 10000) / 10,
+        AudioMax:  Math.round(data.sounds_maxSpace / 10000) / 10
       };
       // Werte der Balken setzten bei > Low -> gelb, bei > High -> rot
       this.MediaHigh = this.storage.MediaMax * 0.90;
@@ -146,9 +152,47 @@ export class OverviewComponent implements OnInit {
 
   setEntities() {
     this.dataService.getEntities().subscribe(data => {
-      this.entities = [
-        { name: 'Device-Name', status: data.a },
-      ];
+
+      this.dataService.getErrorsMock().subscribe(data => {
+
+        const dataSplit: string[] = data.split(',');      // Alle einzelnen Meldungen aufsplitten
+        this.entities = new Array<Entity>(dataSplit.length);
+
+        for ( let i = 0; i < dataSplit.length; i++) {
+          // console.log(dataSplit[i]);
+
+          const temp = dataSplit[i].split(': ');
+          console.log(temp);
+          let name = this.entityService.getShortName( temp[0].slice(1, -1));
+          let status: boolean = false;
+          if (temp[1]) {
+            status = true;
+          }
+
+          this.entities[i] = {
+            'name': name,     // Den genauen Namen durch den verkuerzten ersetzen
+            'status': status    // Hochkomma wegschneiden
+          };
+        }
+      });
+    });
+  }
+
+  setErrors() {
+    this.dataService.getErrorsMock().subscribe(data => {
+
+      const dataSplit: string[] = data.split(',');      // Alle einzelnen Meldungen aufsplitten
+
+      for ( let i = 0; i < dataSplit.length; i++) {
+        // console.log(dataSplit[i]);
+
+        const temp = dataSplit[i].split(': ');
+        console.log(temp);
+        this.errors[i] = {
+          'name': this.entityService.getShortName( temp[0].slice(1, -1)),     // Den genauen Namen durch den verkuerzten ersetzen
+          'description':  temp[1].slice(1, -1)    // Hochkomma wegschneiden
+        };
+      }
     });
   }
 

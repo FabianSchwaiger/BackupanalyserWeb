@@ -7,5 +7,9 @@ export interface Storage {
 }
 
 export interface ReceivedStorage {
-  a: number;
+  snapshots_usedSpace: number;
+  snapshots_maxSpace: number;
+
+  sounds_usedSpace: number;
+  sounds_maxSpace: number;
 }
