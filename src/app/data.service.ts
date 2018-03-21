@@ -57,18 +57,26 @@ export class DataService {
     return Observable.of(storage);
   }
 
-  getEntities(): Observable<ReceivedEntities> {
+  getEntities(): Observable<string> {
   // Entity - Daten von Server holen
     const url = this.url + '/CheckResults';
     console.log('Recieving Entities');
-    return this.http.get<ReceivedEntities>(url);
+    return this.http.get<string>(url);
   }
 
-  getEntitiesMock(): Observable<ReceivedEntities> {
+  getEntitiesMock(): Observable<string> {
     // Entity - Daten von Server holen
-    const url = this.url + '/CheckResults';
     console.log('Recieving Entities');
-    return this.http.get<ReceivedEntities>(url);
+
+    const entitiesRec = '"DeviceDescription": false,' +
+      '"com.commend.iss.activity.Actionset.json": true,' +
+      '"BackupFileContents": true,' +
+      '"JsonFileSanityCheck": true,' +
+      '"com.commend.iss.activity.ActivityCard.json": true,' +
+      '"com.commend.platform.db.MigrationScript.json": true,' +
+      '"com.commend.platform.mediastore.Media.json": false,' +
+      '"com.commend.platform.mediastore.MediaCategory.json": false';
+    return Observable.of(entitiesRec);
   }
 
   getErrors(): Observable<string> {
@@ -80,12 +88,12 @@ export class DataService {
 
   getErrorsMock(): Observable<string> {
     // Error - Daten von Server holen
-    const errorsEx = '"com.commend.activity.http.HttpAction.json": "_type does not exist",' +
+    const errorsRec = '"com.commend.activity.http.HttpAction.json": "_type does not exist",' +
       '"com.commend.platform.mediastore.Media.json": "Entity[1] in the directory...",' +
-      '"com.commend.platform.mediastore.mediaCategory.json": "Entity[2]- usedSpace...",' +
+      '"com.commend.platform.mediastore.MediaCategory.json": "Entity[2]: usedSpace...",' +
       '"com.commend.device.config.Led.json": "Wrong deviceDescription"';
     console.log('Recieving Errors');
-    return Observable.of(errorsEx);
+    return Observable.of(errorsRec);
   }
 
 

@@ -38,7 +38,7 @@ export class OverviewComponent implements OnInit {
 
   // Entity Table
   displayedEntityColumns = ['name', 'status'];
-  EntityDataSource = new EntityDataSource();
+  EntityDataSource: Entity[];
 
   // Device-Properties Table
   displayedDeviceColumns = ['eigenschaften', 'aktStatus'];
@@ -54,14 +54,11 @@ export class OverviewComponent implements OnInit {
   ngOnInit(): void {
   // ngOnInit wird bei laden der Component aufgerufen -> Alle Werte setzen
 
-    this.errors = new Array<Error>(100);
-
 
     this.setDeviceProperties();
     this.setMediaStorage();
 
-    this.entities = ENTITIES;
-
+    this.setEntities();
     this.setErrors();
   }
 
@@ -151,21 +148,16 @@ export class OverviewComponent implements OnInit {
   }
 
   setEntities() {
-    this.dataService.getEntities().subscribe(data => {
-
-      this.dataService.getErrorsMock().subscribe(data => {
-
+    this.dataService.getEntitiesMock().subscribe(data => {
         const dataSplit: string[] = data.split(',');      // Alle einzelnen Meldungen aufsplitten
         this.entities = new Array<Entity>(dataSplit.length);
 
         for ( let i = 0; i < dataSplit.length; i++) {
-          // console.log(dataSplit[i]);
 
           const temp = dataSplit[i].split(': ');
-          console.log(temp);
-          let name = this.entityService.getShortName( temp[0].slice(1, -1));
-          let status: boolean = false;
-          if (temp[1]) {
+          const name = this.entityService.getShortName( temp[0].slice(1, -1));
+          let status = false;
+          if (temp[1] === 'true') {
             status = true;
           }
 
@@ -174,24 +166,35 @@ export class OverviewComponent implements OnInit {
             'status': status    // Hochkomma wegschneiden
           };
         }
+
+        this.EntityDataSource = this.entities;
       });
-    });
   }
 
   setErrors() {
     this.dataService.getErrorsMock().subscribe(data => {
 
       const dataSplit: string[] = data.split(',');      // Alle einzelnen Meldungen aufsplitten
+      this.errors = new Array<Error>(dataSplit.length);
 
       for ( let i = 0; i < dataSplit.length; i++) {
         // console.log(dataSplit[i]);
 
+        /*
         const temp = dataSplit[i].split(': ');
         console.log(temp);
         this.errors[i] = {
           'name': this.entityService.getShortName( temp[0].slice(1, -1)),     // Den genauen Namen durch den verkuerzten ersetzen
           'description':  temp[1].slice(1, -1)    // Hochkomma wegschneiden
         };
+        */
+        const temp = dataSplit[i].split('\"');
+        this.errors[i] = {
+          // temp[0] erstes ", temp[1] name, temp[2} 2. ", temp[3] beschreibung, temp[5] letztes "
+          'name': this.entityService.getShortName(temp[1]),     // Den genauen Namen durch den verkuerzten ersetzen
+          'description':  temp[3]    // Hochkomma wegschneiden
+        };
+
       }
     });
   }
