@@ -54,33 +54,12 @@ export class OverviewComponent implements OnInit {
   ngOnInit(): void {
   // ngOnInit wird bei laden der Component aufgerufen -> Alle Werte setzen
 
-
+    // Benutzen momentan die Mock-Funktion - keine Verbindung zum Server nötig (Testzwecke)
     this.setDeviceProperties();
     this.setMediaStorage();
-
     this.setEntities();
     this.setErrors();
   }
-
-  /*
-  varyValue() {
-  // Hiermit wird ständig der Wert der beiden Speicherbalken variiert (nur für Veranschaulichung, kein Nutzen)
-    for (let i = 0; i < 100; i++) {
-      for (let j = 0; j <= this.storage.MediaMax; j++) {
-        setTimeout(() => { this.setValue(j, 100 - j); }, j * 50 + 10000 * i);
-      }
-      for (let j = 0; j <= this.storage.AudioMax; j++) {
-        setTimeout(() => { this.setValue(100 - j, j); }, j * 50 + 10000 * i + 5000);
-      }
-    }
-  }
-
-  setValue(media: number, audio: number): void {
-  // Wert der beiden Speicherbalken setzten
-    this.storage.MediaUsed = media;
-    this.storage.AudioUsed = audio;
-  }
-  */
 
   showError(errorName: string): void {
   // Fehlerdialog eines gewählten, fehlerhaften Entities anzeigen
@@ -132,8 +111,8 @@ export class OverviewComponent implements OnInit {
     // Für volle Funktion Mock entfernen
     // Daten vom Server holen
     this.dataService.getStorageMock().subscribe(data => {
-      // genaue Namen einfügen
       this.storage = {
+        // Speicher von Byte in MB mit 1 Nachkommastelle
         MediaUsed: Math.round(data.snapshots_usedSpace / 10000) / 10,
         MediaMax:  Math.round(data.snapshots_maxSpace / 10000) / 10,
         AudioUsed:  Math.round(data.sounds_usedSpace / 10000) / 10,
@@ -178,23 +157,12 @@ export class OverviewComponent implements OnInit {
       this.errors = new Array<Error>(dataSplit.length);
 
       for ( let i = 0; i < dataSplit.length; i++) {
-        // console.log(dataSplit[i]);
-
-        /*
-        const temp = dataSplit[i].split(': ');
-        console.log(temp);
-        this.errors[i] = {
-          'name': this.entityService.getShortName( temp[0].slice(1, -1)),     // Den genauen Namen durch den verkuerzten ersetzen
-          'description':  temp[1].slice(1, -1)    // Hochkomma wegschneiden
-        };
-        */
         const temp = dataSplit[i].split('\"');
         this.errors[i] = {
           // temp[0] erstes ", temp[1] name, temp[2} 2. ", temp[3] beschreibung, temp[5] letztes "
           'name': this.entityService.getShortName(temp[1]),     // Den genauen Namen durch den verkuerzten ersetzen
           'description':  temp[3]    // Hochkomma wegschneiden
         };
-
       }
     });
   }

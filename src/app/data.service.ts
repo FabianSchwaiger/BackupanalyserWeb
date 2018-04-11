@@ -1,12 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 
-import { DeviceProperties, ReceivedDeviceProperties } from './DataTypes/DeviceProperties';
-import { Storage, ReceivedStorage } from './DataTypes/Storage';
-import { Entity, ReceivedEntities } from './DataTypes/Entity';
-import { Error } from './DataTypes/Error';
+import { ReceivedDeviceProperties } from './DataTypes/DeviceProperties';
+import { ReceivedStorage } from './DataTypes/Storage';
 
 @Injectable()
 export class DataService {
@@ -15,8 +13,8 @@ export class DataService {
     private http: HttpClient,
     private router: Router
   ) {}
-  url = 'http://localhost:8090/api/BackupAnalyser';    // IP ist aktuelle Server-Adresse von Hamachi 25.20.222.23
-
+  url = 'http://25.20.222.23:8090/api/BackupAnalyser';    // IP ist aktuelle Server-Adresse von Hamachi 25.20.222.23
+                                                       // IP auch beim Repair Field nötig in overview html
   getDeviceProperties(): Observable<ReceivedDeviceProperties> {
   // DeviceProperties - Daten von Server holen
     const url = this.url + '/DeviceDescription';
@@ -41,7 +39,6 @@ export class DataService {
 
     return Observable.of(data);
   }
-
 
   getStorage(): Observable<ReceivedStorage> {
   // Storage - Daten von Server holen
@@ -96,8 +93,6 @@ export class DataService {
     return Observable.of(errorsRec);
   }
 
-
-
   /*
   Zu uploadenes File wird übergeben und hochgeladen
   Um das File hochladen zu können, wird es in FormData gewandelt
@@ -118,7 +113,8 @@ export class DataService {
       response => {
         console.log('POST call in error', response);
         console.error(response.error);
-        this.router.navigate(['/overview']); // Bei Fehler nicht unbedingt wechseln
+        alert('Fehler beim Upload aufgetreten');
+        // Bei Fehler nicht zur Übersicht navigieren
       },
       () => {
         console.log('The POST observable is now completed.');

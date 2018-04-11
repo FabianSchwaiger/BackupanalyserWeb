@@ -10,17 +10,16 @@ import {Router} from '@angular/router';
 })
 
 export class StartComponent {
-selected: File;
+
   constructor (
-    private fileService: DataService,
-    private router: Router
+    private dataService: DataService
   ) {}
 
   // Wenn File gewählt wurde, dieses an Webserver senden
   public fileEvent($event: any) {
     const fileSelected: File = $event.target.files[0];
     console.log('Uploading');
-    this.fileService.uploadFile(fileSelected);
+    this.dataService.uploadFile(fileSelected);
   }
 
 }
