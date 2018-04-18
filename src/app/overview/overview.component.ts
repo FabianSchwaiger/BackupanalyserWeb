@@ -50,7 +50,6 @@ export class OverviewComponent implements OnInit {
     private entityService: EntityService
   ) {}
 
-
   ngOnInit(): void {
   // ngOnInit wird bei laden der Component aufgerufen -> Alle Werte setzen
 

@@ -66,7 +66,7 @@ export class DataService {
     console.log('Recieving Entities');
 
     const entitiesRec = '"DeviceDescription": false,' +
-      '"com.commend.iss.activity.Actionset.json": true,' +
+      '"com.commend.iss.activity.ActionSet.json": true,' +
       '"BackupFileContents": true,' +
       '"JsonFileSanityCheck": true,' +
       '"com.commend.iss.activity.ActivityCard.json": true,' +
@@ -105,6 +105,8 @@ export class DataService {
 
     console.log('Dateiname = ' + fileToUpload.name);   // Dateiname in der Konsole anzeigen
 
+    this.router.navigate(['/overview']); // Nach langer Nacht der Forschung löschen
+
     this.http.post<File>(urlSend, fd).subscribe(
       (val) => {
         console.log('POST call successful value returned in body', val);
@@ -113,7 +115,7 @@ export class DataService {
       response => {
         console.log('POST call in error', response);
         console.error(response.error);
-        alert('Fehler beim Upload aufgetreten');
+        // alert('Fehler beim Upload aufgetreten');
         // Bei Fehler nicht zur Übersicht navigieren
       },
       () => {
